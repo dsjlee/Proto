@@ -1,10 +1,20 @@
-﻿class Greeter {
+﻿/// <reference path="../typings/jquery/jquery.d.ts" />
+
+class Greeter {
+
     constructor(public greeting: string) { }
+
     greet() {
         return "<h1>" + this.greeting + "</h1>";
     }
-};
+}
+   
+(function ($) {
 
-var greeter = new Greeter("Hello, world!");
+    var greeter = new Greeter("Hello, world!");
 
-document.getElementById('title').innerHTML = greeter.greet();
+    $(function () {
+        $('#title').html(greeter.greet());
+    });    
+
+})(jQuery);   
