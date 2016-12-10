@@ -26,5 +26,12 @@ namespace Proto.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public JsonResult Test()
+        {
+            System.Threading.Thread.Sleep(5000);
+            return Json(new { message = "Hello" });
+        }
     }
 }
