@@ -5,6 +5,9 @@
     function AppController() {
         var vm = this;
         vm.foo = "foo";
+        vm.alertFoo = function () {
+            alert('foo');
+        };
     }
 })(angular);
 //# sourceMappingURL=appController.js.map
