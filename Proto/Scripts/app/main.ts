@@ -21,18 +21,21 @@ class Greeter {
     let jqxhr: JQueryXHR;
 
     function testAjax() {
-        jqxhr = <JQueryXHR>$.ajax({
+    jqxhr = <JQueryXHR>$.ajax({
             url: '/Home/Test',
             method: 'POST',
             dataType: 'json',
             beforeSend: (xhr) => {
                 if (jqxhr && jqxhr.readyState !== 4) {
-                    //jqxhr.onreadystatechange = null;
                     jqxhr.abort();
                 }
             }
         }).done((data) => {
             console.log(data);
+        }).fail((xhr: JQueryXHR) => {
+            if (xhr.statusText !== 'abort') {
+                alert(xhr.statusText);
+            } 
         });
     }
 

@@ -22,12 +22,15 @@ var Greeter = (function () {
             dataType: 'json',
             beforeSend: function (xhr) {
                 if (jqxhr && jqxhr.readyState !== 4) {
-                    //jqxhr.onreadystatechange = null;
                     jqxhr.abort();
                 }
             }
         }).done(function (data) {
             console.log(data);
+        }).fail(function (xhr) {
+            if (xhr.statusText !== 'abort') {
+                alert(xhr.statusText);
+            }
         });
     }
 })(jQuery);
