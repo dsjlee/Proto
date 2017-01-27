@@ -1,13 +1,15 @@
-(function (angular) {
-    'use strict';
-    angular.module('app').controller('AppController', AppController);
+var AppSpace;
+(function (AppSpace) {
+    var AppController = (function () {
+        function AppController() {
+            var _this = this;
+            this.alertCtrlName = function () {
+                alert(_this.ctrlName);
+            };
+            this.ctrlName = 'AppController';
+        }
+        return AppController;
+    }());
     AppController.$inject = [];
-    function AppController() {
-        var vm = this;
-        vm.foo = "foo";
-        vm.alertFoo = function () {
-            alert('foo');
-        };
-    }
-})(angular);
-//# sourceMappingURL=appController.js.map
+    AppSpace.AppController = AppController;
+})(AppSpace || (AppSpace = {}));

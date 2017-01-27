@@ -1,20 +1,17 @@
-﻿(function (angular) {
-    'use strict';
+﻿namespace AppSpace {
 
-    interface IAppController {
-        foo: string;
-        alertFoo: () => void;
-    }
+    export class AppController {
 
-    angular.module('app').controller('AppController', AppController);
+        static $inject = [];
+        
+        ctrlName: string;
 
-    AppController.$inject = [];
-
-    function AppController() {
-        var vm: IAppController = this;
-        vm.foo = "foo";
-        vm.alertFoo = () => {
-            alert('foo');
+        constructor() {
+            this.ctrlName = 'AppController';
+        }
+        
+        alertCtrlName = () => {
+            alert(this.ctrlName);
         }
     }
-})(angular);
+}
