@@ -3,3 +3,4 @@
     angular.module('app', [])
         .controller('AppController', AppSpace.AppController);
 })(angular);
+//# sourceMappingURL=app.js.map
