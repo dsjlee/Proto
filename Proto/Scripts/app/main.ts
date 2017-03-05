@@ -7,9 +7,15 @@ class Greeter {
     greet() {
         return "<h1>" + this.greeting + "</h1>";
     }
+
+    public static sayhi = () => {
+        console.log("hi");
+    }
 }
    
 (function ($) {
+
+    Greeter.sayhi();
 
     let greeter = new Greeter("Hello, world!");
 

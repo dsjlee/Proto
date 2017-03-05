@@ -8,7 +8,11 @@ var Greeter = (function () {
     };
     return Greeter;
 }());
+Greeter.sayhi = function () {
+    console.log("hi");
+};
 (function ($) {
+    Greeter.sayhi();
     var greeter = new Greeter("Hello, world!");
     $(function () {
         $('#title').html(greeter.greet());
