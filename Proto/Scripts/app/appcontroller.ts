@@ -17,7 +17,7 @@
 
         alertNumbers = () => {
             this.numList.forEach((value, index) => {
-                console.log(Number.isNaN(value));                
+                console.log(value);             
             });
         }
     }
