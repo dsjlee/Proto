@@ -7,7 +7,6 @@ var AppSpace;
                 alert(this.ctrlName);
             };
             this.alertNumbers = () => {
-                console.log(this.numList.find((x) => x < 2));
                 this.numList.forEach((value, index) => {
                     console.log(Number.isNaN(value));
                 });
