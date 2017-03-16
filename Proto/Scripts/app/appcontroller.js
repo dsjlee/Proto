@@ -1,21 +1,19 @@
 var AppSpace;
 (function (AppSpace) {
-    var AppController = (function () {
-        function AppController() {
-            var _this = this;
+    class AppController {
+        constructor() {
             this.numList = [1, 2, 3, 4, 5];
-            this.alertCtrlName = function () {
-                alert(_this.ctrlName);
+            this.alertCtrlName = () => {
+                alert(this.ctrlName);
             };
-            this.alertNumbers = function () {
-                _this.numList.forEach(function (value, index) {
+            this.alertNumbers = () => {
+                this.numList.forEach((value, index) => {
                     console.log(value);
                 });
             };
             this.ctrlName = 'AppController';
         }
-        return AppController;
-    }());
+    }
     AppController.$inject = [];
     AppSpace.AppController = AppController;
 })(AppSpace || (AppSpace = {}));

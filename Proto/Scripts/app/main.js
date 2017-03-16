@@ -1,37 +1,36 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
-var Greeter = (function () {
-    function Greeter(greeting) {
+class Greeter {
+    constructor(greeting) {
         this.greeting = greeting;
     }
-    Greeter.prototype.greet = function () {
+    greet() {
         return "<h1>" + this.greeting + "</h1>";
-    };
-    return Greeter;
-}());
-Greeter.sayhi = function () {
+    }
+}
+Greeter.sayhi = () => {
     console.log("hi");
 };
 (function ($) {
     Greeter.sayhi();
-    var greeter = new Greeter("Hello, world!");
+    let greeter = new Greeter("Hello, world!");
     $(function () {
         $('#title').html(greeter.greet());
-        $('#test-btn').click(function () { return testAjax(); });
+        $('#test-btn').click(() => testAjax());
     });
-    var jqxhr;
+    let jqxhr;
     function testAjax() {
         jqxhr = $.ajax({
             url: '/Home/Test',
             method: 'POST',
             dataType: 'json',
-            beforeSend: function (xhr) {
+            beforeSend: (xhr) => {
                 if (jqxhr && jqxhr.readyState !== 4) {
                     jqxhr.abort();
                 }
             }
-        }).done(function (data) {
+        }).done((data) => {
             console.log(data);
-        }).fail(function (xhr) {
+        }).fail((xhr) => {
             if (xhr.statusText !== 'abort') {
                 alert(xhr.statusText);
             }
