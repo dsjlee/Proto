@@ -300,7 +300,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app\app.ts" />
     <TypeScriptCompile Include="Scripts\app\appController.ts" />
-    <TypeScriptCompile Include="Scripts\app\foo.ts" />
     <TypeScriptCompile Include="Scripts\app\main.ts" />
   </ItemGroup>
   <PropertyGroup>
