@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,11 +28,11 @@ namespace Proto.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public JsonResult Test()
-        //{
-        //    System.Threading.Thread.Sleep(5000);
-        //    return Json(new { message = "Hello" });
-        //}
+        [HttpPost]
+        public async Task<JsonResult> Test()
+        {
+            await Task.Delay(5000);
+            return Json(new { message = "Hello" });
+        }
     }
 }
