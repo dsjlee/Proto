@@ -29,9 +29,10 @@ namespace Proto.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Test()
+        public async Task<JsonResult> Delay()
         {
             await Task.Delay(5000);
+
             return Json(new { message = "Hello" });
         }
     }
