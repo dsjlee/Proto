@@ -17,4 +17,4 @@ var AppSpace;
     AppController.$inject = [];
     AppSpace.AppController = AppController;
 })(AppSpace || (AppSpace = {}));
-//# sourceMappingURL=appcontroller.js.map
+//# sourceMappingURL=appController.js.map
