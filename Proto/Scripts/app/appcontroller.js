@@ -3,20 +3,20 @@ var AppSpace;
     class AppController {
         constructor() {
             this.ctrlName = 'AppController';
-            this.numList = [1, 2, 3, 4, 5];
             this.panels = [];
+            this.newPanel = new Panel();
             this.alertCtrlName = () => {
                 alert(this.ctrlName);
-            };
-            this.alertNumbers = () => {
-                this.numList.forEach((value, index) => {
-                    console.log(value);
-                });
             };
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
         }
-        copyPanel() {
+        addPanel() {
+            this.newPanel.added = new Date();
+            this.panels.push(this.newPanel);
+            this.newPanel = new Panel();
+        }
+        clonePanel() {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
         }
@@ -33,10 +33,17 @@ var AppSpace;
         constructor(title, content) {
             this.title = title;
             this.content = content;
+            this.added = new Date();
+            this.isEditMode = false;
             this.addedString = () => {
                 return this.added.toLocaleString();
             };
-            this.added = new Date();
+        }
+        toggleEdit() {
+            this.isEditMode = this.isEditMode ? false : true;
+        }
+        save() {
+            this.isEditMode = false;
         }
     }
     AppSpace.Panel = Panel;

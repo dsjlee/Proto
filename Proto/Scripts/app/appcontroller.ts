@@ -5,15 +5,21 @@
         static $inject = [];
         
         readonly ctrlName: string = 'AppController';
-        numList: number[] = [1, 2, 3, 4, 5];
         panels: Panel[] = [];
+        newPanel: Panel = new Panel();
 
         constructor() {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
         }
 
-        copyPanel() {
+        addPanel() {
+            this.newPanel.added = new Date();
+            this.panels.push(this.newPanel);
+            this.newPanel = new Panel();
+        }
+
+        clonePanel() {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
         }
@@ -29,25 +35,25 @@
         alertCtrlName = () => {
             alert(this.ctrlName);
         }
-
-        alertNumbers = () => {
-            this.numList.forEach((value, index) => {
-                console.log(value);             
-            });
-        }
     }
 
     export class Panel {
 
-        added: Date;
+        added: Date = new Date();
+        isEditMode: boolean = false;
 
-        constructor(public title: string, public content?: string)
-        {
-            this.added = new Date();
-        }
+        constructor(public title?: string, public content?: string) { }
 
         addedString = () => {
             return this.added.toLocaleString();
+        }
+
+        toggleEdit() {
+            this.isEditMode = this.isEditMode ? false : true;
+        }
+
+        save() {
+            this.isEditMode = false;
         }
     }
 }
