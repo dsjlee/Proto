@@ -14,6 +14,11 @@ namespace Proto.Controllers
             return View();
         }
 
+        public ActionResult Panels()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
