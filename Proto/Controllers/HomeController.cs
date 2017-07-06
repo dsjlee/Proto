@@ -21,7 +21,16 @@ namespace Proto.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var list = Enumerable.Empty<object>()
+             .Select(r => new { Title = "", Content = "" }) // prototype of anonymous type
+             .ToList();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                list.Add(new { Title = "some title" + i, Content = "some content" + i});
+            }
+
+            ViewBag.Payload = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
             return View();
         }
