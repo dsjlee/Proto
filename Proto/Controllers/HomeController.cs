@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,12 +27,12 @@ namespace Proto.Controllers
              .Select(r => new { Title = "", Content = "" }) // prototype of anonymous type
              .ToList();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10; i++)
             {
                 list.Add(new { Title = "some title" + i, Content = "some content" + i});
             }
 
-            ViewBag.Payload = Newtonsoft.Json.JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
+            ViewBag.Payload = JsonConvert.SerializeObject(list, Formatting.Indented);
 
             return View();
         }
@@ -51,7 +52,6 @@ namespace Proto.Controllers
             return Json(new { message = "Hello" });
         }
 
-        [HttpGet]
         public ActionResult Progress()
         {
             var percent = Session["percent"];
@@ -70,6 +70,23 @@ namespace Proto.Controllers
                 Session["percent"] = null;
             }
             return Content(String.Format("data: {0}%\n\n", percent), "text/event-stream");
+        }
+
+        public async Task ProgressAsync()
+        {
+            Response.ContentType = "text/event-stream";
+
+            int percent = 0;
+            while (percent <= 100)
+            {                
+                Response.Write(String.Format("data: {0}%\n\n", percent));
+                Response.Flush();
+
+                percent = percent + 10;
+                await Task.Delay(1000);
+            }
+
+            Response.Close();
         }
     }
 }

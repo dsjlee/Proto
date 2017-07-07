@@ -27,16 +27,16 @@
         initProgress();
 
         function initProgress() {
-            var source = new EventSource('@Url.Action("Progress")');
+            var source = new EventSource('@Url.Action("ProgressAsync")');
 
             source.onopen = function (event) {
                 $('#progress').html('Connection Opened');
             };
             source.onerror = function (event) {
-                console.log(source.readyState);
+                //console.log(source.readyState);
                 if (event.eventPhase == EventSource.CLOSED) {
-                    //console.log('Connection Closed');
-                    //$('#progress').html('Connection Closed');
+                    $('#progress').html('Connection Closed');
+                    source.close();
                 }
             };
             source.onmessage = function (event) {
