@@ -33,7 +33,7 @@
                 $('#progress').html('Connection Opened');
             };
             source.onerror = function (event) {
-                //console.log("SSE error");
+                console.log(source.readyState);
                 if (event.eventPhase == EventSource.CLOSED) {
                     //console.log('Connection Closed');
                     //$('#progress').html('Connection Closed');
@@ -41,6 +41,9 @@
             };
             source.onmessage = function (event) {
                 $('#progress').html(event.data);
+                if (event.data == '100%') {
+                    source.close();
+                }
             };
         }
     });
