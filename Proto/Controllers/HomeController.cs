@@ -69,24 +69,7 @@ namespace Proto.Controllers
             {
                 Session["percent"] = null;
             }
-            return Content(String.Format("data: {0}%\n\n", percent), "text/event-stream");
-        }
-
-        public async Task ProgressAsync()
-        {
-            Response.ContentType = "text/event-stream";
-
-            int percent = 0;
-            while (percent <= 100)
-            {                
-                Response.Write(String.Format("data: {0}%\n\n", percent));
-                Response.Flush();
-
-                percent = percent + 10;
-                await Task.Delay(1000);
-            }
-
-            Response.Close();
+            return Content(String.Format($"data: {percent}%\n\n"), "text/event-stream");
         }
     }
 }
