@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -48,6 +49,24 @@ namespace Proto.Controllers
             await Task.Delay(5000);
 
             return Json(new { message = "Hello" });
+        }
+
+        [HttpGet]
+        public ActionResult Progress()
+        {
+            var percent = Session["percent"];
+            if (percent == null)
+            {
+                percent = 0;
+                Session["percent"] = 0;
+            }
+            else if ((int)percent < 100)
+            {
+                percent = (int)percent + 10;
+                Session["percent"] = percent;
+            }
+            
+            return Content(String.Format("data: {0}%\n\n", percent), "text/event-stream");
         }
     }
 }
