@@ -32,11 +32,13 @@
             source.onopen = function (event) {
                 $('#progress').html('Connection Opened');
             };
-            //source.onerror = function (event) {
-            //    if (event.eventPhase == EventSource.CLOSED) {
-            //        $('#progress').html('Connection Closed');
-            //    }
-            //};
+            source.onerror = function (event) {
+                //console.log("SSE error");
+                if (event.eventPhase == EventSource.CLOSED) {
+                    //console.log('Connection Closed');
+                    //$('#progress').html('Connection Closed');
+                }
+            };
             source.onmessage = function (event) {
                 $('#progress').html(event.data);
             };

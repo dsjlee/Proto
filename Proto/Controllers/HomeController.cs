@@ -65,7 +65,10 @@ namespace Proto.Controllers
                 percent = (int)percent + 10;
                 Session["percent"] = percent;
             }
-            
+            else
+            {
+                Session["percent"] = null;
+            }
             return Content(String.Format("data: {0}%\n\n", percent), "text/event-stream");
         }
     }
