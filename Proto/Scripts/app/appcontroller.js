@@ -2,6 +2,7 @@ var AppSpace;
 (function (AppSpace) {
     class AppController {
         constructor() {
+            this.$onInit = () => { }; // needed to bypass weak type check
             this.ctrlName = 'AppController';
             this.panels = [];
             this.newPanel = new Panel();
@@ -48,4 +49,4 @@ var AppSpace;
     }
     AppSpace.Panel = Panel;
 })(AppSpace || (AppSpace = {}));
-//# sourceMappingURL=appcontroller.js.map
+//# sourceMappingURL=appController.js.map
