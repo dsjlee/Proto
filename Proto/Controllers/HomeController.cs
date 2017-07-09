@@ -70,6 +70,7 @@ namespace Proto.Controllers
             {
                 Session["percent"] = null;
             }
+
             return Content(String.Format($"data: {percent}\n\n"), "text/event-stream");
         }
 
