@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Proto.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,23 @@ namespace Proto.Controllers
                 Session["percent"] = null;
             }
             return Content(String.Format($"data: {percent}%\n\n"), "text/event-stream");
+        }
+
+        public ActionResult Broadcast(string message)
+        {
+            Helper.Broadcast = message;
+
+            return new EmptyResult();
+        }
+
+        public ActionResult ServerEvent()
+        {
+            return Content(String.Format($"data: {Helper.Broadcast}\n\n"), "text/event-stream");
+        }
+
+        public ActionResult ServerMessage()
+        {
+            return View();
         }
     }
 }

@@ -195,6 +195,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,6 +279,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Home\Panels.cshtml" />
+    <Content Include="Views\Home\ServerMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

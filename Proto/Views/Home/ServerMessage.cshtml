@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Broadcast";
+}
+
+<h2>Server Message</h2>
+<form class="form-inline">
+    <div class="form-group">
+        <input type="text" name="broadcast" id="broadcast" class="form-control" />
+        <button type="button" class="btn btn-primary btn-sm" id="update-btn">Update</button>
+    </div>
+</form>
+<br />
+<p>
+    Server says: <span id="server-message"></span>
+</p>
+<p>Refresh Count: <span id="counter"></span></p>
+@section Scripts {
+    <script>
+    $(function () {
+        var counter = 0;
+
+        initProgress();
+
+        function initProgress() {
+            var source = new EventSource('@Url.Action("ServerEvent")');
+            var msgContainer = $('#server-message');
+            source.onopen = function (event) {
+                msgContainer.html('Connection Opened');
+            };
+            source.onerror = function (event) {
+                //if (event.eventPhase == EventSource.CLOSED) {
+                //    msgContainer.html('Connection Closed');
+                //    source.close();
+                //}
+            };
+            source.onmessage = function (event) {
+                msgContainer.html(event.data);
+                counter++;
+                $('#counter').html(counter);
+                if (event.data == 'stop') {
+                    source.close();
+                }
+            };
+        }
+
+        $('#update-btn').click(function () {
+            var inputVal = $('#broadcast').val();
+            $.get('@Url.Action("Broadcast")' + '?message=' + inputVal, function () {
+                if (inputVal === 'start') {
+                    initProgress();
+                }
+            });
+        });
+
+    }); // end of dom ready
+    </script>
+}
