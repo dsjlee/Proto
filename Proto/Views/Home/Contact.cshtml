@@ -53,8 +53,8 @@
             //};
             source.onmessage = function (event) {
                 var percent = event.data;
-                progressEl.html(percent).css('width', percent).attr('aria-valuenow', percent);
-                if (percent == '100%') {
+                progressEl.html(percent + '%').css('width', percent + '%').attr('aria-valuenow', percent);
+                if (percent == '100') {
                     progressEl.removeClass('active');
                     source.close();
                 }

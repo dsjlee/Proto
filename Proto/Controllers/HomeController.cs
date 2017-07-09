@@ -70,7 +70,7 @@ namespace Proto.Controllers
             {
                 Session["percent"] = null;
             }
-            return Content(String.Format($"data: {percent}%\n\n"), "text/event-stream");
+            return Content(String.Format($"data: {percent}\n\n"), "text/event-stream");
         }
 
         public async Task ProgressAsync()
@@ -81,7 +81,7 @@ namespace Proto.Controllers
             int percent = 0;
             while (percent <= 100)
             {               
-                Response.Write(String.Format($"data: {percent}%\n\n"));
+                Response.Write(String.Format($"data: {percent}\n\n"));
                 await Response.FlushAsync();
 
                 percent += 10;
