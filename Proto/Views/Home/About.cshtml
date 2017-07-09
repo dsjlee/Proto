@@ -29,7 +29,7 @@
             var progressEl = $('#progress-element');
             progressEl.addClass('active');
             var percent = 0;
-            setTimeout(function () {
+            setTimeout(() => {
                 progressFn(percent, progressEl);
             }, 100);
         });
@@ -40,7 +40,7 @@
                 progressEl.removeClass('active');
             } else {
                 percent++;
-                setTimeout(function () {
+                setTimeout(() => {
                     progressFn(percent, progressEl);
                 }, 100);
             }

@@ -41,17 +41,17 @@
             var progressEl = $('#progress-element');
             progressEl.addClass('active');
 
-            //source.onopen = function (event) {
+            //source.onopen = (event) => {
             //    progressEl.html('Connection Opened');
             //};
-            //source.onerror = function (event) {
+            //source.onerror = (event) => {
                 //console.log(source.readyState);
                 //if (event.eventPhase == EventSource.CLOSED) {
                 //    $('#progress').html('Connection Closed');
                 //    source.close();
                 //}
             //};
-            source.onmessage = function (event) {
+            source.onmessage = (event) => {
                 var percent = event.data;
                 progressEl.html(percent + '%').css('width', percent + '%').attr('aria-valuenow', percent);
                 if (percent == '100') {

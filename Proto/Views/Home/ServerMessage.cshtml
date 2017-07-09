@@ -25,16 +25,16 @@
         function initProgress() {
             var source = new EventSource('@Url.Action("ServerEvent")');
             var msgContainer = $('#server-message');
-            source.onopen = function (event) {
+            source.onopen = (event) => {
                 msgContainer.html('Connection Opened');
             };
-            source.onerror = function (event) {
+            source.onerror = (event) => {
                 //if (event.eventPhase == EventSource.CLOSED) {
                 //    msgContainer.html('Connection Closed');
                 //    source.close();
                 //}
             };
-            source.onmessage = function (event) {
+            source.onmessage = (event) => {
                 msgContainer.html(event.data);
                 counter++;
                 $('#counter').html(counter);
@@ -44,7 +44,7 @@
             };
         }
 
-        $('#update-btn').click(function () {
+        $('#update-btn').click(() => {
             var inputVal = $('#broadcast').val();
             $.get('@Url.Action("Broadcast")' + '?message=' + inputVal, function () {
                 if (inputVal === 'start') {
