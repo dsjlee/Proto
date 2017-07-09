@@ -49,4 +49,4 @@ var AppSpace;
     }
     AppSpace.Panel = Panel;
 })(AppSpace || (AppSpace = {}));
-//# sourceMappingURL=appController.js.map
+//# sourceMappingURL=appcontroller.js.map

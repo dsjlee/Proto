@@ -28,7 +28,7 @@ namespace Proto.Controllers
              .Select(r => new { Title = "", Content = "" }) // prototype of anonymous type
              .ToList();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 list.Add(new { Title = "some title" + i, Content = "some content" + i});
             }

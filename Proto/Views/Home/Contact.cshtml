@@ -27,16 +27,18 @@
          aria-valuemax="100" 
          style="width: 0%; min-width: 2em;">0%</div>
 </div>
+<p>Elapsed: <span id="elapsed"></span></p>
 
 @section Scripts {
 <script>
     $(function () {
 
         $('#progress-btn').click(function () {
-            initProgress();
+            var startMoment = moment();
+            initProgress(startMoment);
         });
         
-        function initProgress() {
+        function initProgress(startMoment) {
             var source = new EventSource('@Url.Action("Progress")');
             var progressEl = $('#progress-element');
             progressEl.addClass('active');
@@ -58,6 +60,8 @@
                     progressEl.removeClass('active');
                     source.close();
                 }
+                $('#elapsed').html(startMoment.toNow(true));
+                //$('#elapsed').html(moment().diff(startMoment));
             };
         }
     });
