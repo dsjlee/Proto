@@ -15,33 +15,47 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
-
-<p id="progress">
-
+<p>
+    <button type="button" id="progress-btn" class="btn btn-primary btn-sm">Progress</button>
 </p>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped"
+         id="progress-element"
+         role="progressbar" 
+         aria-valuenow="0" 
+         aria-valuemin="0" 
+         aria-valuemax="100" 
+         style="width: 0%; min-width: 2em;">0%</div>
+</div>
 
 @section Scripts {
 <script>
     $(function () {
 
-        initProgress();
-
+        $('#progress-btn').click(function () {
+            initProgress();
+        });
+        
         function initProgress() {
             var source = new EventSource('@Url.Action("Progress")');
+            var progressEl = $('#progress-element');
+            progressEl.addClass('active');
 
-            source.onopen = function (event) {
-                $('#progress').html('Connection Opened');
-            };
-            source.onerror = function (event) {
+            //source.onopen = function (event) {
+            //    progressEl.html('Connection Opened');
+            //};
+            //source.onerror = function (event) {
                 //console.log(source.readyState);
                 //if (event.eventPhase == EventSource.CLOSED) {
                 //    $('#progress').html('Connection Closed');
                 //    source.close();
                 //}
-            };
+            //};
             source.onmessage = function (event) {
-                $('#progress').html(event.data);
-                if (event.data == '100%') {
+                var percent = event.data;
+                progressEl.html(percent).css('width', percent).attr('aria-valuenow', percent);
+                if (percent == '100%') {
+                    progressEl.removeClass('active');
                     source.close();
                 }
             };
