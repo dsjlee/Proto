@@ -73,6 +73,24 @@ namespace Proto.Controllers
             return Content(String.Format($"data: {percent}%\n\n"), "text/event-stream");
         }
 
+        public async Task ProgressAsync()
+        {
+            Response.ContentType = "text/event-stream";
+            Response.BufferOutput = false;
+
+            int percent = 0;
+            while (percent <= 100)
+            {               
+                Response.Write(String.Format($"data: {percent}%\n\n"));
+                await Response.FlushAsync();
+
+                percent += 10;
+                await Task.Delay(1000);
+            }
+
+            Response.Close();
+        }
+
         public ActionResult Broadcast(string message)
         {
             Helper.Broadcast = message;
