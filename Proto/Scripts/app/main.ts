@@ -1,5 +1,11 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 
+namespace TCS {
+    export class Config {
+        static readonly ColWidth = 25;
+    }
+}
+
 class Greeter {
 
     constructor(public greeting: string) { }

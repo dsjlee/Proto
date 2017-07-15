@@ -77,7 +77,7 @@ namespace Proto.Controllers
         public async Task ProgressAsync()
         {
             Response.ContentType = "text/event-stream";
-            Response.BufferOutput = false;
+            //Response.BufferOutput = false;
 
             int percent = 0;
             while (percent <= 100)

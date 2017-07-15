@@ -1,4 +1,11 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
+var TCS;
+(function (TCS) {
+    class Config {
+    }
+    Config.ColWidth = 25;
+    TCS.Config = Config;
+})(TCS || (TCS = {}));
 class Greeter {
     constructor(greeting) {
         this.greeting = greeting;
