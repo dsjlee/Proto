@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Proto.Services;
+using System.Threading.Tasks;
 
 namespace Proto.Hubs
 {
     public class BroadcastHub : Hub
     {
-        public void Hello()
+        public async Task Trigger()
         {
-            Clients.All.hello();
+            if (BroadcastService.counter == 60)
+            {
+                BroadcastService.counter = 0;
+                await BroadcastService.NotifyCients();
+            }            
         }
     }
 }

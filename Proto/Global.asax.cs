@@ -18,7 +18,7 @@ namespace Proto
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Task.Run(async () => await new BroadcastService().NotifyCients("This is test message."));
+            Task.Run(async () => await BroadcastService.NotifyCients());
         }
     }
 }

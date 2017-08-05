@@ -3,10 +3,19 @@
     export class AppController {
 
         static $inject: Array<string> = [];
-        
+
+        constructor() {
+
+        }
+    }
+
+    export class PanelController {
+
         readonly ctrlName: string = 'AppController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
+
+        static $inject: Array<string> = [];       
 
         constructor() {
             let panel = new Panel('some title', 'some content');

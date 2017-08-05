@@ -3,6 +3,12 @@ var AppSpace;
 (function (AppSpace) {
     class AppController {
         constructor() {
+        }
+    }
+    AppController.$inject = [];
+    AppSpace.AppController = AppController;
+    class PanelController {
+        constructor() {
             this.ctrlName = 'AppController';
             this.panels = [];
             this.newPanel = new AppSpace.Panel();
@@ -28,7 +34,7 @@ var AppSpace;
             this.panels.splice(index, 1);
         }
     }
-    AppController.$inject = [];
-    AppSpace.AppController = AppController;
+    PanelController.$inject = [];
+    AppSpace.PanelController = PanelController;
 })(AppSpace || (AppSpace = {}));
 //# sourceMappingURL=controllers.js.map

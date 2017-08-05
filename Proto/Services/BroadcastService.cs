@@ -6,18 +6,23 @@ namespace Proto.Services
 {
     public class BroadcastService
     {
-        public async Task NotifyCients(string message)
+        public static int counter = 0;
+
+        public static async Task NotifyCients()
         {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<BroadcastHub>();
-            int interval = 0;
-            if (hubContext != null)
-            {                
-                while(true)
-                {                    
-                    await Task.Delay(1000);
-                    interval++;
-                    hubContext.Clients.All.notify($"{message} {interval}");
-                }                
+            if (counter == 0)
+            {
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<BroadcastHub>();
+                if (hubContext != null)
+                {
+                    while (true)
+                    {
+                        await Task.Delay(1000);
+                        counter++;
+                        hubContext.Clients.All.notify($"This is test message. {counter}");
+                        if (counter == 60) break;
+                    }
+                }
             }
         }
     }

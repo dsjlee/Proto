@@ -6,7 +6,6 @@
     <h2>{{vm.ctrlName}}</h2>
     <p>SignalR status: <span id="signalr-status"></span></p>
     <p>Server says: <span id="broadcast-message"></span></p>   
-    <p>invoke: <span id="invoke"></span></p> 
     <button type="button" id="invoke-btn">invoke</button>
 </div>
 @section Scripts {
@@ -21,12 +20,8 @@
             $('#broadcast-message').html(message);
         });
 
-        hub.on('hello', () => {
-            $('#invoke').html('hello');
-        });
-
         $('#invoke-btn').click(() => {
-            hub.invoke("Hello");
+            hub.invoke("Trigger");
         });        
 
         connection.start().done(() => {
