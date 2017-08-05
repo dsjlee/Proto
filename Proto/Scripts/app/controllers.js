@@ -1,8 +1,8 @@
+"use strict";
 var AppSpace;
 (function (AppSpace) {
     class AppController {
         constructor() {
-            this.$onInit = () => { }; // needed to bypass weak type check
             this.ctrlName = 'AppController';
             this.panels = [];
             this.newPanel = new Panel();

@@ -1,8 +1,8 @@
 ﻿namespace AppSpace {
 
     export class AppController {
-        $onInit = () => { }; // needed to bypass weak type check
-        static $inject = [];
+
+        static $inject: Array<string> = [];
         
         readonly ctrlName: string = 'AppController';
         panels: Panel[] = [];
