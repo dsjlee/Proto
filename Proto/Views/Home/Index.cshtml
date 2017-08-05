@@ -12,13 +12,14 @@
 <script src="/signalr/hubs"></script>
 <script>
     $(function () { 
-        var hub = $.connection.broadcastHub;
+        var connection = $.hubConnection();
+        var hub = connection.createHubProxy("BroadcastHub");
 
-        hub.client.onBroadcast = (message) => { 
+        hub.on('onBroadcast', (message) => { 
             $('#broadcast-message').html(message);
-        };
+        });
 
-        $.connection.hub.start().done(() => {
+        connection.start().done(() => {
             $('#signalr-status').html('hub started.');
         });
     });
