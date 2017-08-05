@@ -4,7 +4,23 @@
 
 <div ng-controller="appController as vm">
     <h2>{{vm.ctrlName}}</h2>
+    <p>SignalR status: <span id="signalr-status"></span></p>
+    <p>Server says: <span id="broadcast-message"></span></p>    
 </div>
 @section Scripts {
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="/signalr/hubs"></script>
+<script>
+    $(function () { 
+        var hub = $.connection.broadcastHub;
 
+        hub.client.onBroadcast = (message) => { 
+            $('#broadcast-message').html(message);
+        };
+
+        $.connection.hub.start().done(() => {
+            $('#signalr-status').html('hub started.');
+        });
+    });
+</script>
 }
