@@ -1,33 +1,39 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
-"use strict";
-var TCS;
-(function (TCS) {
-    class Config {
+﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
+
+namespace TCS {
+    export class Config {
+        static readonly ColWidth = 25;
     }
-    Config.ColWidth = 25;
-    TCS.Config = Config;
-})(TCS || (TCS = {}));
+}
+
 class Greeter {
-    constructor(greeting) {
-        this.greeting = greeting;
-    }
+
+    constructor(public greeting: string) { }
+
     greet() {
         return "<h1>" + this.greeting + "</h1>";
     }
+
+    public static sayhi = () => {
+        console.log("hi");
+    }
 }
-Greeter.sayhi = () => {
-    console.log("hi");
-};
+   
 (function ($) {
+
     Greeter.sayhi();
+
     let greeter = new Greeter("Hello, world!");
+
     $(function () {
         $('#title').html(greeter.greet());
         $('#test-btn').click(() => testAjax());
-    });
-    let jqxhr;
+    });    
+
+    let jqxhr: JQueryXHR;
+
     function testAjax() {
-        jqxhr = $.ajax({
+    jqxhr = <JQueryXHR>$.ajax({
             url: '/Home/Test',
             method: 'POST',
             dataType: 'json',
@@ -38,11 +44,11 @@ Greeter.sayhi = () => {
             }
         }).done((data) => {
             console.log(data);
-        }).fail((xhr) => {
+        }).fail((xhr: JQueryXHR) => {
             if (xhr.statusText !== 'abort') {
                 alert(xhr.statusText);
-            }
+            } 
         });
     }
-})(jQuery);
-//# sourceMappingURL=main.js.map
+
+})(jQuery);   

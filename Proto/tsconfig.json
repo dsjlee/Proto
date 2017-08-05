@@ -9,7 +9,7 @@
   },
   "compileOnSave": true,
   "include": [
-    "Scripts/app"
+    "app"
   ],
   "exclude": [
     "Scripts/typings"
