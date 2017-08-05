@@ -8,7 +8,7 @@
     <p><button type="button" id="test-btn" class="btn btn-primary btn-lg">Test &raquo;</button></p>
 </div>
 
-<div class="row" ng-controller="AppController as vm">
+<div class="row" ng-controller="appController as vm">
     <div class="col-md-4">
         <h2>{{vm.ctrlName}}</h2>
         <p>
@@ -30,9 +30,5 @@
     </div>
 </div>
 @section Scripts {
-<script src="~/Scripts/app/main.js"></script>
-<script>
-    var colWidth = TCS.Config.ColWidth + 'px';
-    console.log(colWidth);
-</script>
+
 }
