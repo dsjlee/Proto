@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": false,
     "sourceMap": true,
-    "target": "es6"
+    "target": "es6",
+    "alwaysStrict": true
   },
   "compileOnSave": true,
+  "include": [
+    "Scripts/app"
+  ],
   "exclude": [
     "Scripts/typings"
   ]

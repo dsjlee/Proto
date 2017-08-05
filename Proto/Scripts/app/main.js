@@ -1,4 +1,5 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
+"use strict";
 var TCS;
 (function (TCS) {
     class Config {

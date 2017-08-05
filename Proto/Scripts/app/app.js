@@ -1,6 +1,5 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
-(function (angular) {
-    angular.module('app', [])
-        .controller('appController', AppSpace.AppController);
-})(angular);
+"use strict";
+angular.module('app', [])
+    .controller('appController', AppSpace.AppController);
 //# sourceMappingURL=app.js.map
