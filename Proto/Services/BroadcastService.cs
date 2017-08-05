@@ -16,7 +16,7 @@ namespace Proto.Services
                 {                    
                     await Task.Delay(1000);
                     interval++;
-                    hubContext.Clients.All.onBroadcast($"{message} {interval}");
+                    hubContext.Clients.All.notify($"{message} {interval}");
                 }                
             }
         }

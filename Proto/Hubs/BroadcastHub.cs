@@ -6,7 +6,7 @@ namespace Proto.Hubs
     {
         public void Hello()
         {
-            Clients.All.onBroadcast("Hello");
+            Clients.All.hello();
         }
     }
 }

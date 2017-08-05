@@ -5,7 +5,9 @@
 <div ng-controller="appController as vm">
     <h2>{{vm.ctrlName}}</h2>
     <p>SignalR status: <span id="signalr-status"></span></p>
-    <p>Server says: <span id="broadcast-message"></span></p>    
+    <p>Server says: <span id="broadcast-message"></span></p>   
+    <p>invoke: <span id="invoke"></span></p> 
+    <button type="button" id="invoke-btn">invoke</button>
 </div>
 @section Scripts {
 <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
@@ -15,9 +17,17 @@
         var connection = $.hubConnection();
         var hub = connection.createHubProxy("BroadcastHub");
 
-        hub.on('onBroadcast', (message) => { 
+        hub.on('notify', (message) => { 
             $('#broadcast-message').html(message);
         });
+
+        hub.on('hello', () => {
+            $('#invoke').html('hello');
+        });
+
+        $('#invoke-btn').click(() => {
+            hub.invoke("Hello");
+        });        
 
         connection.start().done(() => {
             $('#signalr-status').html('hub started.');
