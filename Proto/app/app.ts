@@ -3,4 +3,5 @@
 
 angular.module('app', [])
     .controller('appController', AppSpace.AppController)
-    .controller('panelController', AppSpace.PanelController);
+    .controller('panelController', AppSpace.PanelController)
+    .service('hubProxyService', AppSpace.HubProxyService);

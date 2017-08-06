@@ -2,31 +2,26 @@
 var AppSpace;
 (function (AppSpace) {
     class AppController {
-        constructor($scope, $rootScope) {
-            this.$scope = $scope;
+        constructor($rootScope, hubProxyService) {
             this.$rootScope = $rootScope;
+            this.hubProxyService = hubProxyService;
             this.ctrlName = 'AppController';
-            this.hubConnection = $.hubConnection();
-            this.hub = this.hubConnection.createHubProxy("BroadcastHub");
-            this.hub.on('notify', (message) => {
-                $rootScope.$apply(() => {
-                    this.broadcastMessage = message;
-                });
+            this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
+            this.hubProxy.on('notify', (message) => {
+                this.broadcastMessage = message;
             });
         }
         $onInit() {
-            this.hubConnection.start().done((data) => {
-                this.$rootScope.$apply(() => {
-                    this.hubStatus = 'hub started.';
-                });
+            this.hubProxyService.start((data) => {
+                this.hubStatus = 'hub started.';
             });
         }
         trigger() {
-            this.hub.invoke("Trigger");
+            this.hubProxy.invoke("Trigger");
         }
     }
     //$onInit: () => void;
-    AppController.$inject = ['$scope', '$rootScope'];
+    AppController.$inject = ['$rootScope', 'hubProxyService'];
     AppSpace.AppController = AppController;
     class PanelController {
         constructor() {

@@ -2,38 +2,32 @@
 
     export class AppController implements ng.IController {
 
-        hubConnection: SignalR.Hub.Connection;
-        hub: SignalR.Hub.Proxy;
-        ctrlName: string;
+        readonly ctrlName: string;
+        hubProxy: HubProxy;        
         hubStatus: string;
         broadcastMessage: string;
         //$onInit: () => void;
 
-        static $inject: Array<string> = ['$scope', '$rootScope'];
+        static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
-        constructor(private $scope: ng.IScope, private $rootScope: ng.IRootScopeService) {
+        constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {
             this.ctrlName = 'AppController';
 
-            this.hubConnection = $.hubConnection();
-            this.hub = this.hubConnection.createHubProxy("BroadcastHub");
+            this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
 
-            this.hub.on('notify', (message) => {
-                $rootScope.$apply(() => {
-                    this.broadcastMessage = message;
-                });               
+            this.hubProxy.on('notify', (message: string) => {
+                this.broadcastMessage = message;
             });
         }
 
         $onInit() {
-            this.hubConnection.start().done((data) => {
-                this.$rootScope.$apply(() => {
-                    this.hubStatus = 'hub started.';
-                });
+            this.hubProxyService.start((data: any) => {
+                this.hubStatus = 'hub started.';
             });
         }
 
         trigger() {
-            this.hub.invoke("Trigger");
+            this.hubProxy.invoke("Trigger");
         }
     }
 

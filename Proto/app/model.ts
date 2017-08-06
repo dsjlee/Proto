@@ -1,5 +1,24 @@
 ﻿namespace AppSpace {
 
+    export class HubProxy {
+
+        hub: SignalR.Hub.Proxy;
+
+        constructor(private hubConnection: SignalR.Hub.Connection, hubName: string, private rootScope: ng.IRootScopeService) {
+            this.hub = this.hubConnection.createHubProxy(hubName);
+        }
+
+        on(eventName: string, callback: Function) {
+            this.hub.on(eventName, (message) => {
+                this.rootScope.$apply(callback(message));
+            });
+        }
+
+        invoke(eventName: string) {
+            this.hub.invoke(eventName);
+        }
+    }
+
     export class Panel {
 
         added: Date = new Date();
