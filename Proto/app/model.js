@@ -12,8 +12,13 @@ var AppSpace;
                 this.rootScope.$apply(callback(message));
             });
         }
-        invoke(eventName) {
-            this.hub.invoke(eventName);
+        invoke(eventName, message) {
+            if (message) {
+                this.hub.invoke(eventName, message);
+            }
+            else {
+                this.hub.invoke(eventName);
+            }
         }
     }
     AppSpace.HubProxy = HubProxy;

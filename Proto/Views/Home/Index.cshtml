@@ -6,7 +6,10 @@
     <h2>{{vm.ctrlName}}</h2>
     <p>SignalR status: <span id="signalr-status">{{vm.hubStatus}}</span></p>
     <p>Server says: <span id="broadcast-message">{{vm.broadcastMessage}}</span></p>   
-    <button type="button" id="invoke-btn" ng-click="vm.trigger()">invoke</button>
+    <button type="button" id="invoke-btn" ng-click="vm.trigger()">trigger</button>
+    <br /><br />
+    <input type="text" ng-model="vm.notifyMessage" />
+    <button type="button" ng-click="vm.notify()">notify</button>
 </div>
 @section Scripts {
 <script>

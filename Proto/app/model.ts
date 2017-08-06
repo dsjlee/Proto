@@ -14,8 +14,13 @@
             });
         }
 
-        invoke(eventName: string) {
-            this.hub.invoke(eventName);
+        invoke(eventName: string, message?: string) {
+            if (message) {
+                this.hub.invoke(eventName, message);
+            } else {
+                this.hub.invoke(eventName);
+            }
+            
         }
     }
 

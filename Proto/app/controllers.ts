@@ -6,6 +6,7 @@
         hubProxy: HubProxy;        
         hubStatus: string;
         broadcastMessage: string;
+        notifyMessage: string;
         //$onInit: () => void;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
@@ -28,6 +29,10 @@
 
         trigger() {
             this.hubProxy.invoke("Trigger");
+        }
+
+        notify() {
+            this.hubProxy.invoke("Notify", this.notifyMessage);
         }
     }
 

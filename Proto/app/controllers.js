@@ -19,6 +19,9 @@ var AppSpace;
         trigger() {
             this.hubProxy.invoke("Trigger");
         }
+        notify() {
+            this.hubProxy.invoke("Notify", this.notifyMessage);
+        }
     }
     //$onInit: () => void;
     AppController.$inject = ['$rootScope', 'hubProxyService'];
