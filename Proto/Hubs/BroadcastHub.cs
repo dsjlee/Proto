@@ -10,16 +10,13 @@ namespace Proto.Hubs
 
         public BroadcastHub() : this(BroadcastService.Instance) { }
 
-        public BroadcastHub(BroadcastService broadcastService)
-        {
-            _broadcastService = broadcastService;
-        }
-
+        public BroadcastHub(BroadcastService broadcastService) => _broadcastService = broadcastService;
+        
         public async Task Trigger()
         {
-            if (BroadcastService.counter == BroadcastService.counterLimit)
+            if (_broadcastService.counter == BroadcastService.counterLimit)
             {
-                BroadcastService.counter = 0;
+                _broadcastService.counter = 0;
                 await _broadcastService.NotifyCients();
             }            
         }
