@@ -2,30 +2,35 @@
 var AppSpace;
 (function (AppSpace) {
     class AppController {
-        constructor() {
+        constructor($scope, $rootScope) {
+            this.$scope = $scope;
+            this.$rootScope = $rootScope;
             this.ctrlName = 'AppController';
-            //this.hubConnection = $.hubConnection();
-            //this.hub = this.hubConnection.createHubProxy("BroadcastHub");
-            //this.hub.on('notify', (message) => {
-            //    this.broadcastMessage = message;
-            //});
+            this.hubConnection = $.hubConnection();
+            this.hub = this.hubConnection.createHubProxy("BroadcastHub");
+            this.hub.on('notify', (message) => {
+                $rootScope.$apply(() => {
+                    this.broadcastMessage = message;
+                });
+            });
         }
         $onInit() {
-            //this.hubConnection.start().done((data) => {
-            //    console.log(data);
-            //    this.hubStatus = 'hub started.';
-            //});
+            this.hubConnection.start().done((data) => {
+                this.$rootScope.$apply(() => {
+                    this.hubStatus = 'hub started.';
+                });
+            });
         }
         trigger() {
             this.hub.invoke("Trigger");
         }
     }
     //$onInit: () => void;
-    AppController.$inject = [];
+    AppController.$inject = ['$scope', '$rootScope'];
     AppSpace.AppController = AppController;
     class PanelController {
         constructor() {
-            this.ctrlName = 'AppController';
+            this.ctrlName = 'PanelController';
             this.panels = [];
             this.newPanel = new AppSpace.Panel();
             this.alertCtrlName = () => {

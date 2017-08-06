@@ -9,22 +9,27 @@
         broadcastMessage: string;
         //$onInit: () => void;
 
-        static $inject: Array<string> = [];
+        static $inject: Array<string> = ['$scope', '$rootScope'];
 
-        constructor() {
+        constructor(private $scope: ng.IScope, private $rootScope: ng.IRootScopeService) {
             this.ctrlName = 'AppController';
-            //this.hubConnection = $.hubConnection();
-            //this.hub = this.hubConnection.createHubProxy("BroadcastHub");
-            //this.hub.on('notify', (message) => {
-            //    this.broadcastMessage = message;
-            //});
+
+            this.hubConnection = $.hubConnection();
+            this.hub = this.hubConnection.createHubProxy("BroadcastHub");
+
+            this.hub.on('notify', (message) => {
+                $rootScope.$apply(() => {
+                    this.broadcastMessage = message;
+                });               
+            });
         }
 
         $onInit() {
-            //this.hubConnection.start().done((data) => {
-            //    console.log(data);
-            //    this.hubStatus = 'hub started.';
-            //});
+            this.hubConnection.start().done((data) => {
+                this.$rootScope.$apply(() => {
+                    this.hubStatus = 'hub started.';
+                });
+            });
         }
 
         trigger() {
@@ -34,7 +39,7 @@
 
     export class PanelController implements ng.IController {
 
-        readonly ctrlName: string = 'AppController';
+        readonly ctrlName: string = 'PanelController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
         $onInit: () => void;

@@ -11,20 +11,20 @@
 @section Scripts {
 <script>
     $(function () { 
-        var connection = $.hubConnection();
-        var hub = connection.createHubProxy("BroadcastHub");
+        //var connection = $.hubConnection();
+        //var hub = connection.createHubProxy("BroadcastHub");
 
-        hub.on('notify', (message) => { 
-            $('#broadcast-message').html(message);
-        });
+        //hub.on('notify', (message) => { 
+        //    $('#broadcast-message').html(message);
+        //});
 
-        $('#invoke-btn').click(() => {
-            hub.invoke("Trigger");
-        });        
+        //$('#invoke-btn').click(() => {
+        //    hub.invoke("Trigger");
+        //});        
 
-        connection.start().done(() => {
-            $('#signalr-status').html('hub started.');
-        });
+        //connection.start().done(() => {
+        //    $('#signalr-status').html('hub started.');
+        //});
     });
 </script>
 }
