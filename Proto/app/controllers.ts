@@ -1,19 +1,43 @@
 ﻿namespace AppSpace {
 
-    export class AppController {
+    export class AppController implements ng.IController {
+
+        hubConnection: SignalR.Hub.Connection;
+        hub: SignalR.Hub.Proxy;
+        ctrlName: string;
+        hubStatus: string;
+        broadcastMessage: string;
+        //$onInit: () => void;
 
         static $inject: Array<string> = [];
 
         constructor() {
+            this.ctrlName = 'AppController';
+            //this.hubConnection = $.hubConnection();
+            //this.hub = this.hubConnection.createHubProxy("BroadcastHub");
+            //this.hub.on('notify', (message) => {
+            //    this.broadcastMessage = message;
+            //});
+        }
 
+        $onInit() {
+            //this.hubConnection.start().done((data) => {
+            //    console.log(data);
+            //    this.hubStatus = 'hub started.';
+            //});
+        }
+
+        trigger() {
+            this.hub.invoke("Trigger");
         }
     }
 
-    export class PanelController {
+    export class PanelController implements ng.IController {
 
         readonly ctrlName: string = 'AppController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
+        $onInit: () => void;
 
         static $inject: Array<string> = [];       
 

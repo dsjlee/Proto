@@ -3,8 +3,24 @@ var AppSpace;
 (function (AppSpace) {
     class AppController {
         constructor() {
+            this.ctrlName = 'AppController';
+            //this.hubConnection = $.hubConnection();
+            //this.hub = this.hubConnection.createHubProxy("BroadcastHub");
+            //this.hub.on('notify', (message) => {
+            //    this.broadcastMessage = message;
+            //});
+        }
+        $onInit() {
+            //this.hubConnection.start().done((data) => {
+            //    console.log(data);
+            //    this.hubStatus = 'hub started.';
+            //});
+        }
+        trigger() {
+            this.hub.invoke("Trigger");
         }
     }
+    //$onInit: () => void;
     AppController.$inject = [];
     AppSpace.AppController = AppController;
     class PanelController {

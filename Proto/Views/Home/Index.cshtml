@@ -4,13 +4,11 @@
 
 <div ng-controller="appController as vm">
     <h2>{{vm.ctrlName}}</h2>
-    <p>SignalR status: <span id="signalr-status"></span></p>
-    <p>Server says: <span id="broadcast-message"></span></p>   
-    <button type="button" id="invoke-btn">invoke</button>
+    <p>SignalR status: <span id="signalr-status">{{vm.hubStatus}}</span></p>
+    <p>Server says: <span id="broadcast-message">{{vm.broadcastMessage}}</span></p>   
+    <button type="button" id="invoke-btn" ng-click="vm.trigger()">invoke</button>
 </div>
 @section Scripts {
-<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-<script src="/signalr/hubs"></script>
 <script>
     $(function () { 
         var connection = $.hubConnection();
