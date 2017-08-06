@@ -7,6 +7,7 @@ namespace Proto.Services
     public class BroadcastService
     {
         public static int counter = 0;
+        public static readonly int counterLimit = 20;
 
         public static async Task NotifyCients()
         {
@@ -20,7 +21,7 @@ namespace Proto.Services
                         await Task.Delay(1000);
                         counter++;
                         hubContext.Clients.All.notify($"This is test message. {counter}");
-                        if (counter == 60) break;
+                        if (counter == counterLimit) break;
                     }
                 }
             }

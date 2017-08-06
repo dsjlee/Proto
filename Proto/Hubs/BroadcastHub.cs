@@ -8,7 +8,7 @@ namespace Proto.Hubs
     {
         public async Task Trigger()
         {
-            if (BroadcastService.counter == 60)
+            if (BroadcastService.counter == BroadcastService.counterLimit)
             {
                 BroadcastService.counter = 0;
                 await BroadcastService.NotifyCients();
