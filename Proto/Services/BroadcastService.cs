@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Proto.Hubs;
+using System;
 using System.Threading.Tasks;
 
 namespace Proto.Services
@@ -8,19 +9,33 @@ namespace Proto.Services
     {
         public static int counter = 0;
         public static readonly int counterLimit = 20;
+        private readonly static Lazy<BroadcastService> _instance = new Lazy<BroadcastService>(() => new BroadcastService());
+        private readonly IHubContext _hubContext;
 
-        public static async Task NotifyCients()
+        public BroadcastService()
+        {
+            _hubContext = GlobalHost.ConnectionManager.GetHubContext<BroadcastHub>();
+        }
+
+        public static BroadcastService Instance
+        {
+            get
+            {
+                return _instance.Value;
+            }
+        }
+
+        public async Task NotifyCients()
         {
             if (counter == 0)
             {
-                var hubContext = GlobalHost.ConnectionManager.GetHubContext<BroadcastHub>();
-                if (hubContext != null)
+                if (_hubContext != null)
                 {
                     while (true)
                     {
                         await Task.Delay(1000);
                         counter++;
-                        hubContext.Clients.All.notify($"This is test message. {counter}");
+                        _hubContext.Clients.All.notify($"This is test message. {counter}");
                         if (counter == counterLimit) break;
                     }
                 }

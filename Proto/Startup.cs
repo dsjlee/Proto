@@ -12,7 +12,7 @@ namespace Proto
         {
             ConfigureAuth(app);
             app.MapSignalR();
-            Task.Run(async () => await BroadcastService.NotifyCients());
+            Task.Run(async () => await BroadcastService.Instance.NotifyCients());
         }
     }
 }
