@@ -1,20 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Progress Bar";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
 <p>
     <button type="button" id="progress-btn" class="btn btn-primary btn-sm">Progress</button>
 </p>
@@ -30,6 +18,7 @@
 <p>Elapsed: <span id="elapsed"></span></p>
 
 @section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script>
     $(function () {
 

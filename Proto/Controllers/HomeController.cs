@@ -22,35 +22,9 @@ namespace Proto.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ProgressBar()
         {
-            var list = Enumerable.Empty<object>()
-             .Select(r => new { Title = "", Content = "" }) // prototype of anonymous type
-             .ToList();
-
-            for (int i = 0; i < 5; i++)
-            {
-                list.Add(new { Title = "some title" + i, Content = "some content" + i});
-            }
-
-            ViewBag.Payload = JsonConvert.SerializeObject(list, Formatting.Indented);
-
             return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> Delay()
-        {
-            await Task.Delay(5000);
-
-            return Json(new { message = "Hello" });
         }
 
         public ActionResult Progress()
@@ -92,6 +66,11 @@ namespace Proto.Controllers
             Response.Close();
         }
 
+        public ActionResult EventSource()
+        {
+            return View();
+        }
+
         public ActionResult Broadcast(string message)
         {
             Helper.Broadcast = message;
@@ -104,9 +83,20 @@ namespace Proto.Controllers
             return Content(String.Format($"data: {Helper.Broadcast}\n\n"), "text/event-stream");
         }
 
-        public ActionResult ServerMessage()
-        {
-            return View();
-        }
+        //public ActionResult JsonFormat()
+        //{
+        //    var list = Enumerable.Empty<object>()
+        //     .Select(r => new { Title = "", Content = "" }) // prototype of anonymous type
+        //     .ToList();
+
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        list.Add(new { Title = "some title" + i, Content = "some content" + i });
+        //    }
+
+        //    ViewBag.Payload = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+        //    return View();
+        //}
     }
 }
