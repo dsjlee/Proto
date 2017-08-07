@@ -25,11 +25,11 @@
         }
 
         trigger() {
-            this.hubProxy.invoke("Trigger");
+            this.hubProxy.invoke(HubEvent.Trigger);
         }
 
         notify() {
-            this.hubProxy.invoke("Notify", this.notifyMessage);
+            this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
         }
     }
 

@@ -1,6 +1,11 @@
 "use strict";
 var AppSpace;
 (function (AppSpace) {
+    let HubEvent;
+    (function (HubEvent) {
+        HubEvent["Trigger"] = "Trigger";
+        HubEvent["Notify"] = "Notify";
+    })(HubEvent = AppSpace.HubEvent || (AppSpace.HubEvent = {}));
     class HubProxy {
         constructor(hubConnection, hubName, rootScope) {
             this.hubConnection = hubConnection;

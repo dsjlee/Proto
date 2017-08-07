@@ -17,10 +17,10 @@ var AppSpace;
             });
         }
         trigger() {
-            this.hubProxy.invoke("Trigger");
+            this.hubProxy.invoke(AppSpace.HubEvent.Trigger);
         }
         notify() {
-            this.hubProxy.invoke("Notify", this.notifyMessage);
+            this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
         }
     }
     //$onInit: () => void;

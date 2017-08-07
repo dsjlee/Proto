@@ -1,5 +1,10 @@
 ﻿namespace AppSpace {
 
+    export enum HubEvent {
+        Trigger = 'Trigger',
+        Notify = 'Notify'
+    }
+
     export class HubProxy {
 
         hub: SignalR.Hub.Proxy;
@@ -14,7 +19,7 @@
             });
         }
 
-        invoke(eventName: string, message?: string) {
+        invoke(eventName: HubEvent, message?: string) {
             if (message) {
                 this.hub.invoke(eventName, message);
             } else {
