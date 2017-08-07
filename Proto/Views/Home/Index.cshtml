@@ -3,13 +3,28 @@
 }
 
 <div ng-controller="appController as vm">
-    <h2>{{vm.ctrlName}}</h2>
-    <p>SignalR status: <span id="signalr-status">{{vm.hubStatus}}</span></p>
-    <p>Server says: <span id="broadcast-message">{{vm.broadcastMessage}}</span></p>   
-    <button type="button" id="invoke-btn" ng-click="vm.trigger()">trigger</button>
-    <br /><br />
-    <input type="text" ng-model="vm.notifyMessage" />
-    <button type="button" ng-click="vm.notify()">notify</button>
+    <h2>{{vm.pageTitle}}</h2>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" ng-model="vm.notifyMessage" ng-keyup="$event.keyCode == 13 && vm.notify()" class="form-control" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" ng-click="vm.notify()">notify</button>
+                </span>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Hub status: {{vm.hubStatus}}
+                    <button type="button" ng-click="vm.trigger()" class="btn btn-primary btn-xs pull-right">trigger</button>
+                </div>
+                <div class="panel-body" style="background-color:lightslategrey;color:white;min-height:200px;">
+                    {{vm.broadcastMessage}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @section Scripts {
 <script>

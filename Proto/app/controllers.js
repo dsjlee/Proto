@@ -5,7 +5,7 @@ var AppSpace;
         constructor($rootScope, hubProxyService) {
             this.$rootScope = $rootScope;
             this.hubProxyService = hubProxyService;
-            this.ctrlName = 'AppController';
+            this.pageTitle = 'Broadcast Hub';
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
             this.hubProxy.on('notify', (message) => {
                 this.broadcastMessage = message;

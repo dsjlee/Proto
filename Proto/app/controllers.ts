@@ -2,7 +2,7 @@
 
     export class AppController implements ng.IController {
 
-        readonly ctrlName: string;
+        readonly pageTitle = 'Broadcast Hub';
         hubProxy: HubProxy;        
         hubStatus: string;
         broadcastMessage: string;
@@ -12,10 +12,7 @@
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
         constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {
-            this.ctrlName = 'AppController';
-
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-
             this.hubProxy.on('notify', (message: string) => {
                 this.broadcastMessage = message;
             });
