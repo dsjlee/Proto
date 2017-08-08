@@ -8,16 +8,16 @@ namespace Proto.Controllers
 {
     public class HomeController : Controller
     {
-        //private IAppCache _cache;
+        private IAppCache _cache;
 
-        //public HomeController(IAppCache cache)
-        //{
-        //    _cache = cache;
-        //}
+        public HomeController(IAppCache cache)
+        {
+            _cache = cache;
+        }
 
         public ActionResult Index()
         {
-            var _cache = new CachingService();
+            _cache = new CachingService();
             var fromCache = _cache.GetOrAdd("from-cache", () => "I'm from cache.");
             ViewBag.FromCache = fromCache;
 
