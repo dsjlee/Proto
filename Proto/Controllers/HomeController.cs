@@ -17,9 +17,8 @@ namespace Proto.Controllers
 
         public ActionResult Index()
         {
-            _cache = new CachingService();
-            var fromCache = _cache.GetOrAdd("from-cache", () => "I'm from cache.");
-            ViewBag.FromCache = fromCache;
+            //var fromCache = _cache.GetOrAdd("from-cache", () => "I'm from cache.");
+            //ViewBag.FromCache = fromCache;
 
             return View();
         }
