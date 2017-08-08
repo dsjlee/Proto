@@ -1,19 +1,26 @@
-﻿using Newtonsoft.Json;
+﻿using LazyCache;
 using Proto.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Proto.Controllers
 {
     public class HomeController : Controller
     {
+        //private IAppCache _cache;
+
+        //public HomeController(IAppCache cache)
+        //{
+        //    _cache = cache;
+        //}
+
         public ActionResult Index()
         {
+            var _cache = new CachingService();
+            var fromCache = _cache.GetOrAdd("from-cache", () => "I'm from cache.");
+            ViewBag.FromCache = fromCache;
+
             return View();
         }
 
