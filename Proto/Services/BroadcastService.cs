@@ -18,19 +18,16 @@ namespace Proto.Services
 
         public async Task NotifyCients()
         {
-            if (counter == 0)
+            if (_hubContext != null && counter == 0)
             {
-                if (_hubContext != null)
+                while (true)
                 {
-                    while (true)
-                    {
-                        await Task.Delay(1000);
-                        counter++;
-                        _hubContext.Clients.All.notify($"This is test message. {counter}");
-                        if (counter == counterLimit) break;
-                    }
+                    await Task.Delay(1000);
+                    counter++;
+                    _hubContext.Clients.All.notify($"This is test message. {counter}");
+                    if (counter == counterLimit) break;
                 }
-            }
+            }           
         }
     }
 }

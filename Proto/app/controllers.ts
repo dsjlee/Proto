@@ -35,7 +35,7 @@
 
     export class PanelController implements ng.IController {
 
-        readonly ctrlName: string = 'PanelController';
+        readonly ctrlName = 'PanelController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
         $onInit: () => void;
