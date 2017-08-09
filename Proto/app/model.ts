@@ -5,6 +5,7 @@
         Notify = 'Notify'
     }
 
+    // wrapper to encapsulate SignalR.Hub.Proxy and its methods
     export class HubProxy {
 
         hub: SignalR.Hub.Proxy;
@@ -13,6 +14,8 @@
             this.hub = this.hubConnection.createHubProxy(hubName);
         }
 
+        // SignalR callback does not trigger angular digest cycle
+        // need to apply manually
         on(eventName: string, callback: Function) {
             this.hub.on(eventName, (message) => {
                 this.rootScope.$apply(callback(message));

@@ -8,8 +8,10 @@ namespace Proto.Hubs
     {
         private readonly BroadcastService _broadcastService;
 
+        // hub is transitory (created every time it is needed)
         public BroadcastHub() : this(BroadcastService.Instance) { }
 
+        // inject BroadcastService singleton
         public BroadcastHub(BroadcastService broadcastService) => _broadcastService = broadcastService;
         
         public async Task Trigger()

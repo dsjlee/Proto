@@ -6,12 +6,15 @@ var AppSpace;
         HubEvent["Trigger"] = "Trigger";
         HubEvent["Notify"] = "Notify";
     })(HubEvent = AppSpace.HubEvent || (AppSpace.HubEvent = {}));
+    // wrapper to encapsulate SignalR.Hub.Proxy and its methods
     class HubProxy {
         constructor(hubConnection, hubName, rootScope) {
             this.hubConnection = hubConnection;
             this.rootScope = rootScope;
             this.hub = this.hubConnection.createHubProxy(hubName);
         }
+        // SignalR callback does not trigger angular digest cycle
+        // need to apply manually
         on(eventName, callback) {
             this.hub.on(eventName, (message) => {
                 this.rootScope.$apply(callback(message));
