@@ -26,3 +26,11 @@ textarea {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+
+.broadcast-panel {
+    background-color: lightslategrey;
+    color: white;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
