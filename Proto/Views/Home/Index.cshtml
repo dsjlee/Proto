@@ -16,10 +16,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Hub status: {{vm.hubStatus}}
-                    <button type="button" ng-click="vm.trigger()" class="btn btn-primary btn-xs pull-right">trigger</button>
+                    <div class="pull-right">
+                        <button type="button" ng-click="vm.trigger()" class="btn btn-primary btn-xs">trigger loop</button>
+                        <button type="button" ng-click="vm.resetMessages()" class="btn btn-default btn-xs">clear</button>
+                    </div>
                 </div>
                 <div class="panel-body" style="background-color:lightslategrey;color:white;min-height:200px;">
-                    {{vm.broadcastMessage}}
+                    <div ng-repeat="message in vm.broadcastMessages">
+                        <p>{{message}}</p>
+                    </div>                  
                 </div>
             </div>
         </div>

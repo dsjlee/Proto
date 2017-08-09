@@ -20,12 +20,22 @@ namespace Proto
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
+                        "~/Scripts/jquery.signalR-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular-app").Include(
+                        "~/Scripts/angular.js",
+                        "~/app/model.js",
+                        "~/app/services.js",
+                        "~/app/controllers.js",
+                        "~/app/app.js"));
         }
     }
 }

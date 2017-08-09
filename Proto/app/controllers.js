@@ -8,19 +8,24 @@ var AppSpace;
             this.pageTitle = 'Broadcast Hub';
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
             this.hubProxy.on('notify', (message) => {
-                this.broadcastMessage = message;
+                this.broadcastMessages.unshift(message);
             });
         }
         $onInit() {
+            this.resetMessages();
             this.hubProxyService.start((data) => {
                 this.hubStatus = 'hub started.';
             });
         }
         trigger() {
+            this.resetMessages();
             this.hubProxy.invoke(AppSpace.HubEvent.Trigger);
         }
         notify() {
             this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
+        }
+        resetMessages() {
+            this.broadcastMessages = [];
         }
     }
     //$onInit: () => void;

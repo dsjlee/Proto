@@ -5,31 +5,37 @@
         readonly pageTitle = 'Broadcast Hub';
         hubProxy: HubProxy;        
         hubStatus: string;
-        broadcastMessage: string;
+        broadcastMessages: string[];
         notifyMessage: string;
         //$onInit: () => void;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
-        constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {
+        constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {           
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
             this.hubProxy.on('notify', (message: string) => {
-                this.broadcastMessage = message;
+                this.broadcastMessages.unshift(message);
             });
         }
 
-        $onInit() {
+        $onInit() {    
+            this.resetMessages();
             this.hubProxyService.start((data: any) => {
                 this.hubStatus = 'hub started.';
             });
         }
 
         trigger() {
+            this.resetMessages();
             this.hubProxy.invoke(HubEvent.Trigger);
         }
 
         notify() {
             this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
+        }
+
+        resetMessages() {
+            this.broadcastMessages = [];
         }
     }
 
