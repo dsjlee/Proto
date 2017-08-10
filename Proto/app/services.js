@@ -18,8 +18,7 @@ var AppSpace;
                 if (callback) {
                     // start method maybe called again to reconnect if connection lost
                     // cannot call $apply again if digest cycle already in progress
-                    // using $applyAsync start new digest cycle 
-                    // but share the digest cycles among several async callbacks
+                    // use $applyAsync to defer to next digest cycle
                     this.$rootScope.$applyAsync(callback(data));
                 }
             });

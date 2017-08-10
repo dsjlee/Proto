@@ -14,8 +14,7 @@
             this.hub = this.hubConnection.createHubProxy(hubName);
         }
 
-        // SignalR callback does not trigger angular digest cycle
-        // need to apply manually
+        // SignalR callback does not trigger angular digest cycle. Need to apply manually
         on(eventName: string, callback: Function) {
             this.hub.on(eventName, (message) => {
                 this.rootScope.$apply(callback(message));
