@@ -30,6 +30,10 @@
             });
         }
 
+        stopHub() {
+            this.hubProxyService.stop(true, true);
+        }
+
         trigger() {
             this.resetMessages();
             this.hubProxy.invoke(HubEvent.Trigger);

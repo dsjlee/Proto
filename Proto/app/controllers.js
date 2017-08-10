@@ -20,6 +20,9 @@ var AppSpace;
                 this.isConnecting = false;
             });
         }
+        stopHub() {
+            this.hubProxyService.stop(true, true);
+        }
         trigger() {
             this.resetMessages();
             this.hubProxy.invoke(AppSpace.HubEvent.Trigger);

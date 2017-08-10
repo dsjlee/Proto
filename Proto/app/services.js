@@ -28,6 +28,9 @@ var AppSpace;
                 }
             });
         }
+        stop(async, notifyServer) {
+            this.hubConnection.stop(async, notifyServer);
+        }
         error(callback) {
             this.hubConnection.error((error) => {
                 this.$rootScope.$apply(callback(error));

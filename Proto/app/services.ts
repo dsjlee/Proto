@@ -36,6 +36,10 @@
             });
         }
 
+        stop(async?: boolean, notifyServer?: boolean) {
+            this.hubConnection.stop(async, notifyServer);
+        }
+
         error(callback: Function) {
             this.hubConnection.error((error: SignalR.ConnectionError) => {
                 this.$rootScope.$apply(callback(error));
