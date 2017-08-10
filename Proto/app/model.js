@@ -20,11 +20,16 @@ var AppSpace;
             });
         }
         invoke(eventName, message) {
-            if (message) {
-                this.hub.invoke(eventName, message);
+            if (this.hubConnection.state === 1 /* Connected */) {
+                if (message) {
+                    this.hub.invoke(eventName, message);
+                }
+                else {
+                    this.hub.invoke(eventName);
+                }
             }
             else {
-                this.hub.invoke(eventName);
+                alert('Hub is disconnected.');
             }
         }
     }

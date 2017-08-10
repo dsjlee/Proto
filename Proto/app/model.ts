@@ -23,11 +23,15 @@
         }
 
         invoke(eventName: HubEvent, message?: string) {
-            if (message) {
-                this.hub.invoke(eventName, message);
+            if (this.hubConnection.state === SignalR.ConnectionState.Connected) {
+                if (message) {
+                    this.hub.invoke(eventName, message);
+                } else {
+                    this.hub.invoke(eventName);
+                } 
             } else {
-                this.hub.invoke(eventName);
-            }          
+                alert('Hub is disconnected.');
+            }        
         }
     }
 

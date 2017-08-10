@@ -31,6 +31,6 @@ textarea {
     background-color: lightslategrey;
     color: white;
     min-height: 200px;
-    max-height: 400px;
+    max-height: 350px;
     overflow-y: auto;
 }

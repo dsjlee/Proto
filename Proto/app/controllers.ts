@@ -35,7 +35,7 @@
             this.hubProxy.invoke(HubEvent.Trigger);
         }
 
-        notify() {
+        notify() {         
             this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
         }
 
@@ -73,6 +73,29 @@
                         break;
                 }
             });
+        }
+
+        // get accessor
+        get hubStatusColor(): string {
+            let colorClass = '';
+            switch (this.hubProxyService.state) {
+                case SignalR.ConnectionState.Connected:
+                    colorClass = 'text-success';
+                    break;
+                case SignalR.ConnectionState.Connecting:
+                    colorClass = 'text-info';
+                    break;
+                case SignalR.ConnectionState.Disconnected:
+                    colorClass = 'text-danger';
+                    break;
+                case SignalR.ConnectionState.Reconnecting:
+                    colorClass = 'text-warning';
+                    break;
+                default:
+                    colorClass = 'text-primary';
+                    break;
+            }
+            return colorClass;
         }
     }
 

@@ -60,6 +60,28 @@ var AppSpace;
                 }
             });
         }
+        // get accessor
+        get hubStatusColor() {
+            let colorClass = '';
+            switch (this.hubProxyService.state) {
+                case 1 /* Connected */:
+                    colorClass = 'text-success';
+                    break;
+                case 0 /* Connecting */:
+                    colorClass = 'text-info';
+                    break;
+                case 4 /* Disconnected */:
+                    colorClass = 'text-danger';
+                    break;
+                case 2 /* Reconnecting */:
+                    colorClass = 'text-warning';
+                    break;
+                default:
+                    colorClass = 'text-primary';
+                    break;
+            }
+            return colorClass;
+        }
     }
     //$onInit: () => void;
     AppController.$inject = ['$rootScope', 'hubProxyService'];

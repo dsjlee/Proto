@@ -7,6 +7,11 @@
 
         hubConnection: SignalR.Hub.Connection;
 
+        // get accessor
+        get state(): SignalR.ConnectionState {
+            return this.hubConnection.state;
+        }
+
         static $inject: Array<string> = ['$rootScope'];
 
         constructor(private $rootScope: ng.IRootScopeService) {
@@ -45,5 +50,6 @@
                 this.$rootScope.$evalAsync(callback(change));
             });
         }
+
     }
 }

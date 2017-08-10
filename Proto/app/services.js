@@ -9,6 +9,10 @@ var AppSpace;
             this.$rootScope = $rootScope;
             this.hubConnection = $.hubConnection();
         }
+        // get accessor
+        get state() {
+            return this.hubConnection.state;
+        }
         createHubProxy(hubName) {
             return new AppSpace.HubProxy(this.hubConnection, hubName, this.$rootScope);
         }
