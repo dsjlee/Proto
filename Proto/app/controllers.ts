@@ -15,13 +15,25 @@
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
             this.hubProxy.on('notify', (message: string) => {
                 this.broadcastMessages.unshift(message);
-            });
+            });           
         }
 
         $onInit() {    
             this.resetMessages();
+            this.hubProxyService.error((data: any) => {
+                console.log(data);
+                this.hubStatus = 'hub error occurred.';
+            });
+            this.startHub();
+        }
+
+        startHub() {
             this.hubProxyService.start((data: any) => {
-                this.hubStatus = 'hub started.';
+                if (data.state === SignalR.ConnectionState.Connected) {
+                    this.hubStatus = 'hub connected.';
+                } else {
+                    this.hubStatus = 'hub failed to connect.';
+                }
             });
         }
 

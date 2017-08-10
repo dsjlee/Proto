@@ -27,8 +27,7 @@
                 this.hub.invoke(eventName, message);
             } else {
                 this.hub.invoke(eventName);
-            }
-            
+            }          
         }
     }
 

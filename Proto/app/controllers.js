@@ -13,8 +13,20 @@ var AppSpace;
         }
         $onInit() {
             this.resetMessages();
+            this.hubProxyService.error((data) => {
+                console.log(data);
+                this.hubStatus = 'hub error occurred.';
+            });
+            this.startHub();
+        }
+        startHub() {
             this.hubProxyService.start((data) => {
-                this.hubStatus = 'hub started.';
+                if (data.state === 1 /* Connected */) {
+                    this.hubStatus = 'hub connected.';
+                }
+                else {
+                    this.hubStatus = 'hub failed to connect.';
+                }
             });
         }
         trigger() {
