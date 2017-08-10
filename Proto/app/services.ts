@@ -30,8 +30,14 @@
         }
 
         error(callback: Function) {
-            this.hubConnection.error((data) => {
-                this.$rootScope.$apply(callback(data));
+            this.hubConnection.error((error: SignalR.ConnectionError) => {
+                this.$rootScope.$apply(callback(error));
+            });
+        }
+
+        stateChanged(callback: Function) {
+            this.hubConnection.stateChanged((change: SignalR.StateChanged) => {
+                this.$rootScope.$evalAsync(callback(change));
             });
         }
     }

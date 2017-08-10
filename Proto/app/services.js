@@ -24,8 +24,13 @@ var AppSpace;
             });
         }
         error(callback) {
-            this.hubConnection.error((data) => {
-                this.$rootScope.$apply(callback(data));
+            this.hubConnection.error((error) => {
+                this.$rootScope.$apply(callback(error));
+            });
+        }
+        stateChanged(callback) {
+            this.hubConnection.stateChanged((change) => {
+                this.$rootScope.$evalAsync(callback(change));
             });
         }
     }

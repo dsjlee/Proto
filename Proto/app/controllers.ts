@@ -13,28 +13,17 @@
 
         constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {           
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-            this.hubProxy.on('notify', (message: string) => {
-                this.broadcastMessages.unshift(message);
-            });           
+            this.setHubEvents(); // define hub client event handlers before hub connection start in $onInit
+            this.resetMessages();
         }
 
-        $onInit() {    
-            this.resetMessages();
-            this.hubProxyService.error((data: any) => {
-                console.log(data);
-                this.hubStatus = 'hub error occurred.';
-            });
+        $onInit() {                
+            this.setHubConnectionEvents(); // set hub connection event handlers before starting hub connection
             this.startHub();
         }
 
         startHub() {
-            this.hubProxyService.start((data: any) => {
-                if (data.state === SignalR.ConnectionState.Connected) {
-                    this.hubStatus = 'hub connected.';
-                } else {
-                    this.hubStatus = 'hub failed to connect.';
-                }
-            });
+            this.hubProxyService.start();
         }
 
         trigger() {
@@ -48,6 +37,38 @@
 
         resetMessages() {
             this.broadcastMessages = [];
+        }
+
+        setHubEvents() {
+            this.hubProxy.on('notify', (message: string) => {
+                this.broadcastMessages.unshift(message);
+            });
+        }
+
+        setHubConnectionEvents() {
+            this.hubProxyService.error((error: SignalR.ConnectionError) => {
+                console.log(error);
+                this.hubStatus = 'hub error occurred.';
+            });
+            this.hubProxyService.stateChanged((change: SignalR.StateChanged) => {
+                switch (change.newState) {
+                    case SignalR.ConnectionState.Connected:
+                        this.hubStatus = 'Connected';
+                        break;
+                    case SignalR.ConnectionState.Connecting:
+                        this.hubStatus = 'Connecting';
+                        break;
+                    case SignalR.ConnectionState.Disconnected:
+                        this.hubStatus = 'Disconnected';
+                        break;
+                    case SignalR.ConnectionState.Reconnecting:
+                        this.hubStatus = 'Reconnecting';
+                        break;
+                    default:
+                        this.hubStatus = 'info unavailable';
+                        break;
+                }
+            });
         }
     }
 

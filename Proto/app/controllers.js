@@ -7,27 +7,15 @@ var AppSpace;
             this.hubProxyService = hubProxyService;
             this.pageTitle = 'Broadcast Hub';
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-            this.hubProxy.on('notify', (message) => {
-                this.broadcastMessages.unshift(message);
-            });
+            this.setHubEvents(); // define hub client event handlers before hub connection start in $onInit
+            this.resetMessages();
         }
         $onInit() {
-            this.resetMessages();
-            this.hubProxyService.error((data) => {
-                console.log(data);
-                this.hubStatus = 'hub error occurred.';
-            });
+            this.setHubConnectionEvents(); // set hub connection event handlers before starting hub connection
             this.startHub();
         }
         startHub() {
-            this.hubProxyService.start((data) => {
-                if (data.state === 1 /* Connected */) {
-                    this.hubStatus = 'hub connected.';
-                }
-                else {
-                    this.hubStatus = 'hub failed to connect.';
-                }
-            });
+            this.hubProxyService.start();
         }
         trigger() {
             this.resetMessages();
@@ -38,6 +26,36 @@ var AppSpace;
         }
         resetMessages() {
             this.broadcastMessages = [];
+        }
+        setHubEvents() {
+            this.hubProxy.on('notify', (message) => {
+                this.broadcastMessages.unshift(message);
+            });
+        }
+        setHubConnectionEvents() {
+            this.hubProxyService.error((error) => {
+                console.log(error);
+                this.hubStatus = 'hub error occurred.';
+            });
+            this.hubProxyService.stateChanged((change) => {
+                switch (change.newState) {
+                    case 1 /* Connected */:
+                        this.hubStatus = 'Connected';
+                        break;
+                    case 0 /* Connecting */:
+                        this.hubStatus = 'Connecting';
+                        break;
+                    case 4 /* Disconnected */:
+                        this.hubStatus = 'Disconnected';
+                        break;
+                    case 2 /* Reconnecting */:
+                        this.hubStatus = 'Reconnecting';
+                        break;
+                    default:
+                        this.hubStatus = 'info unavailable';
+                        break;
+                }
+            });
         }
     }
     //$onInit: () => void;
