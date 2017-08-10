@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="input-group">
-                <input type="text" ng-model="vm.notifyMessage" ng-keyup="$event.keyCode == 13 && vm.notify()" class="form-control" />
+                <input type="text"  class="form-control" ng-model="vm.notifyMessage" ng-keyup="$event.keyCode == 13 && vm.notify()" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-primary" ng-click="vm.notify()">notify</button>
                 </span>
@@ -17,9 +17,11 @@
                 <div class="panel-heading">
                     Hub status: {{vm.hubStatus}}
                     <div class="pull-right">
-                        <button type="button" ng-click="vm.trigger()" class="btn btn-primary btn-xs">trigger loop</button>
-                        <button type="button" ng-click="vm.resetMessages()" class="btn btn-default btn-xs">clear</button>
-                        <button type="button" ng-click="vm.startHub()" class="btn btn-default btn-xs">ReconnectHub</button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="vm.trigger()">trigger loop</button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="vm.resetMessages()">clear</button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="vm.startHub()" ng-disabled="vm.isConnecting">
+                            {{vm.isConnecting ? 'Connecting...' :'ReconnectHub'}}
+                        </button>
                     </div>
                 </div>
                 <div class="panel-body broadcast-panel">

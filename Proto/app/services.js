@@ -13,6 +13,7 @@ var AppSpace;
             return new AppSpace.HubProxy(this.hubConnection, hubName, this.$rootScope);
         }
         // SignalR callback does not trigger angular digest cycle. Need to apply manually
+        //https://stackoverflow.com/questions/21471355/angular-why-isnt-evalasync-called-applyasync
         start(callback) {
             this.hubConnection.start().done((data) => {
                 if (callback) {
@@ -30,6 +31,9 @@ var AppSpace;
         }
         stateChanged(callback) {
             this.hubConnection.stateChanged((change) => {
+                // callback runs whenever state changes.
+                // cannot call $apply again if digest cycle already in progress
+                // use $evalAsync to defers to next loop iteration of current digest cycle
                 this.$rootScope.$evalAsync(callback(change));
             });
         }

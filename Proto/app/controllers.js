@@ -15,7 +15,10 @@ var AppSpace;
             this.startHub();
         }
         startHub() {
-            this.hubProxyService.start();
+            this.isConnecting = true;
+            this.hubProxyService.start((data) => {
+                this.isConnecting = false;
+            });
         }
         trigger() {
             this.resetMessages();

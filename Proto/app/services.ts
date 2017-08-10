@@ -18,6 +18,8 @@
         }
 
         // SignalR callback does not trigger angular digest cycle. Need to apply manually
+        //https://stackoverflow.com/questions/21471355/angular-why-isnt-evalasync-called-applyasync
+
         start(callback?: Function) {
             this.hubConnection.start().done((data) => {
                 if (callback) {
@@ -37,6 +39,9 @@
 
         stateChanged(callback: Function) {
             this.hubConnection.stateChanged((change: SignalR.StateChanged) => {
+                // callback runs whenever state changes.
+                // cannot call $apply again if digest cycle already in progress
+                // use $evalAsync to defers to next loop iteration of current digest cycle
                 this.$rootScope.$evalAsync(callback(change));
             });
         }

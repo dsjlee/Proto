@@ -7,6 +7,7 @@
         hubStatus: string;
         broadcastMessages: string[];
         notifyMessage: string;
+        isConnecting: boolean;
         //$onInit: () => void;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
@@ -23,7 +24,10 @@
         }
 
         startHub() {
-            this.hubProxyService.start();
+            this.isConnecting = true;
+            this.hubProxyService.start((data: any) => {
+                this.isConnecting = false;
+            });
         }
 
         trigger() {
