@@ -15,10 +15,7 @@ var AppSpace;
             this.startHub();
         }
         startHub() {
-            this.isConnecting = true;
-            this.hubProxyService.start((data) => {
-                this.isConnecting = false;
-            });
+            this.hubProxyService.start();
         }
         stopHub() {
             this.hubProxyService.stop(true, true);
@@ -52,46 +49,32 @@ var AppSpace;
                 switch (change.newState) {
                     case 1 /* Connected */:
                         this.hubStatus = 'Connected';
+                        this.isConnecting = false;
+                        this.hubStatusColor = 'text-success';
                         break;
                     case 0 /* Connecting */:
                         this.hubStatus = 'Connecting';
+                        this.isConnecting = true;
+                        this.hubStatusColor = 'text-info';
                         break;
                     case 4 /* Disconnected */:
                         this.hubStatus = 'Disconnected';
+                        this.isConnecting = false;
+                        this.hubStatusColor = 'text-danger';
                         break;
                     case 2 /* Reconnecting */:
                         this.hubStatus = 'Reconnecting';
+                        this.isConnecting = true;
+                        this.hubStatusColor = 'text-warning';
                         break;
                     default:
                         this.hubStatus = 'info unavailable';
+                        this.hubStatusColor = 'text-primary';
                         break;
                 }
             });
         }
-        // get accessor
-        get hubStatusColor() {
-            let colorClass = 'text-';
-            switch (this.hubProxyService.state) {
-                case 1 /* Connected */:
-                    colorClass += 'success';
-                    break;
-                case 0 /* Connecting */:
-                    colorClass += 'info';
-                    break;
-                case 4 /* Disconnected */:
-                    colorClass += 'danger';
-                    break;
-                case 2 /* Reconnecting */:
-                    colorClass += 'warning';
-                    break;
-                default:
-                    colorClass += 'primary';
-                    break;
-            }
-            return colorClass;
-        }
     }
-    //$onInit: () => void;
     AppController.$inject = ['$rootScope', 'hubProxyService'];
     AppSpace.AppController = AppController;
     class PanelController {

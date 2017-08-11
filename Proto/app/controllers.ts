@@ -3,12 +3,12 @@
     export class AppController implements ng.IController {
 
         readonly pageTitle = 'Broadcast Hub';
-        hubProxy: HubProxy;        
-        hubStatus: string;
+        hubProxy: HubProxy;  
         broadcastMessages: string[];
+        hubStatus: string;      
         notifyMessage: string;
+        hubStatusColor: string; // twitter bootstrap contextual class for text
         isConnecting: boolean;
-        //$onInit: () => void;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
@@ -24,10 +24,7 @@
         }
 
         startHub() {
-            this.isConnecting = true;
-            this.hubProxyService.start((data: any) => {
-                this.isConnecting = false;
-            });
+            this.hubProxyService.start();
         }
 
         stopHub() {
@@ -67,45 +64,32 @@
                 switch (change.newState) {
                     case SignalR.ConnectionState.Connected:
                         this.hubStatus = 'Connected';
+                        this.isConnecting = false;
+                        this.hubStatusColor = 'text-success';
                         break;
                     case SignalR.ConnectionState.Connecting:
                         this.hubStatus = 'Connecting';
+                        this.isConnecting = true;
+                        this.hubStatusColor = 'text-info';
                         break;
                     case SignalR.ConnectionState.Disconnected:
                         this.hubStatus = 'Disconnected';
+                        this.isConnecting = false;
+                        this.hubStatusColor = 'text-danger';
                         break;
                     case SignalR.ConnectionState.Reconnecting:
                         this.hubStatus = 'Reconnecting';
+                        this.isConnecting = true;
+                        this.hubStatusColor = 'text-warning';
                         break;
                     default:
                         this.hubStatus = 'info unavailable';
+                        this.hubStatusColor = 'text-primary';
                         break;
                 }
             });
         }
 
-        // get accessor
-        get hubStatusColor(): string {
-            let colorClass = 'text-';
-            switch (this.hubProxyService.state) {
-                case SignalR.ConnectionState.Connected:
-                    colorClass += 'success';
-                    break;
-                case SignalR.ConnectionState.Connecting:
-                    colorClass += 'info';
-                    break;
-                case SignalR.ConnectionState.Disconnected:
-                    colorClass += 'danger';
-                    break;
-                case SignalR.ConnectionState.Reconnecting:
-                    colorClass += 'warning';
-                    break;
-                default:
-                    colorClass += 'primary';
-                    break;
-            }
-            return colorClass;
-        }
     }
 
     export class PanelController implements ng.IController {
