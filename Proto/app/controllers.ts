@@ -50,6 +50,11 @@
         setHubEvents() {
             this.hubProxy.on('notify', (message: string) => {
                 this.broadcastMessages.unshift(message);
+                let itemCount = this.broadcastMessages.length;
+                let numberToKeep = 50;
+                if (itemCount > numberToKeep) {                    
+                    this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
+                }                
             });
         }
 
@@ -81,22 +86,22 @@
 
         // get accessor
         get hubStatusColor(): string {
-            let colorClass = '';
+            let colorClass = 'text-';
             switch (this.hubProxyService.state) {
                 case SignalR.ConnectionState.Connected:
-                    colorClass = 'text-success';
+                    colorClass += 'success';
                     break;
                 case SignalR.ConnectionState.Connecting:
-                    colorClass = 'text-info';
+                    colorClass += 'info';
                     break;
                 case SignalR.ConnectionState.Disconnected:
-                    colorClass = 'text-danger';
+                    colorClass += 'danger';
                     break;
                 case SignalR.ConnectionState.Reconnecting:
-                    colorClass = 'text-warning';
+                    colorClass += 'warning';
                     break;
                 default:
-                    colorClass = 'text-primary';
+                    colorClass += 'primary';
                     break;
             }
             return colorClass;

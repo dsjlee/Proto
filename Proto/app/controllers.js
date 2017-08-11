@@ -36,6 +36,11 @@ var AppSpace;
         setHubEvents() {
             this.hubProxy.on('notify', (message) => {
                 this.broadcastMessages.unshift(message);
+                let itemCount = this.broadcastMessages.length;
+                let numberToKeep = 50;
+                if (itemCount > numberToKeep) {
+                    this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
+                }
             });
         }
         setHubConnectionEvents() {
@@ -65,22 +70,22 @@ var AppSpace;
         }
         // get accessor
         get hubStatusColor() {
-            let colorClass = '';
+            let colorClass = 'text-';
             switch (this.hubProxyService.state) {
                 case 1 /* Connected */:
-                    colorClass = 'text-success';
+                    colorClass += 'success';
                     break;
                 case 0 /* Connecting */:
-                    colorClass = 'text-info';
+                    colorClass += 'info';
                     break;
                 case 4 /* Disconnected */:
-                    colorClass = 'text-danger';
+                    colorClass += 'danger';
                     break;
                 case 2 /* Reconnecting */:
-                    colorClass = 'text-warning';
+                    colorClass += 'warning';
                     break;
                 default:
-                    colorClass = 'text-primary';
+                    colorClass += 'primary';
                     break;
             }
             return colorClass;
