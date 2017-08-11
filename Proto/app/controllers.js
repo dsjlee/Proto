@@ -61,6 +61,7 @@ var AppSpace;
                         this.hubStatus = 'Disconnected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-danger';
+                        console.log('Disconnected');
                         break;
                     case 2 /* Reconnecting */:
                         this.hubStatus = 'Reconnecting';

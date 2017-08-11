@@ -76,6 +76,7 @@
                         this.hubStatus = 'Disconnected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-danger';
+                        console.log('Disconnected');
                         break;
                     case SignalR.ConnectionState.Reconnecting:
                         this.hubStatus = 'Reconnecting';
