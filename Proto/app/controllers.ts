@@ -36,8 +36,10 @@
             this.hubProxy.invoke(HubEvent.Trigger);
         }
 
-        notify() {         
-            this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
+        notify() { 
+            if (this.notifyMessage) {
+                this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
+            }  
         }
 
         resetMessages() {

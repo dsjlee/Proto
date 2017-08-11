@@ -6,12 +6,15 @@
     <br />
     <div class="row">
         <div class="col-md-6">
-            <div class="input-group">
-                <input type="text"  class="form-control" ng-model="vm.notifyMessage" ng-keyup="$event.keyCode == 13 && vm.notify()" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary" ng-click="vm.notify()">send</button>
-                </span>
-            </div>
+            <form name="notifyForm" ng-submit="vm.notify()">
+                <div class="input-group">
+                    <input type="text" name="notifyMessage" class="form-control" ng-model="vm.notifyMessage" ng-maxlength="1000" required />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">send</button>
+                    </span>
+                </div>
+                <div ng-if="notifyForm.notifyMessage.$error.maxlength" class="text-danger">Max allowed is 1000 characters.</div>
+            </form>
             <br />
             <div class="panel panel-default">
                 <div class="panel-heading">
