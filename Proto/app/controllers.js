@@ -42,8 +42,8 @@ var AppSpace;
         }
         setHubConnectionEvents() {
             this.hubProxyService.error((error) => {
-                console.log(error);
-                this.hubStatus = 'hub error occurred.';
+                this.hubStatus = error.message;
+                this.hubStatusColor = 'text-danger';
             });
             this.hubProxyService.stateChanged((change) => {
                 switch (change.newState) {
@@ -61,7 +61,6 @@ var AppSpace;
                         this.hubStatus = 'Disconnected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-danger';
-                        console.log('Disconnected');
                         break;
                     case 2 /* Reconnecting */:
                         this.hubStatus = 'Reconnecting';

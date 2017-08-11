@@ -57,8 +57,8 @@
 
         setHubConnectionEvents() {
             this.hubProxyService.error((error: SignalR.ConnectionError) => {
-                console.log(error);
-                this.hubStatus = 'hub error occurred.';
+                this.hubStatus = error.message;
+                this.hubStatusColor = 'text-danger';
             });
             this.hubProxyService.stateChanged((change: SignalR.StateChanged) => {
                 switch (change.newState) {
@@ -76,7 +76,6 @@
                         this.hubStatus = 'Disconnected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-danger';
-                        console.log('Disconnected');
                         break;
                     case SignalR.ConnectionState.Reconnecting:
                         this.hubStatus = 'Reconnecting';

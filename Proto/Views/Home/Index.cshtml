@@ -9,24 +9,25 @@
             <div class="input-group">
                 <input type="text"  class="form-control" ng-model="vm.notifyMessage" ng-keyup="$event.keyCode == 13 && vm.notify()" />
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary" ng-click="vm.notify()">notify</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.notify()">send</button>
                 </span>
             </div>
             <br />
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Hub status: <span ng-class="vm.hubStatusColor">{{vm.hubStatus}}</span>
-                    &nbsp; &nbsp;
-                    <span>
-                        <button type="button" class="btn btn-info btn-xs" ng-click="vm.startHub()" ng-disabled="vm.isConnecting">
-                            {{vm.isConnecting ? 'connecting...' : 'reconnect'}}
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="vm.stopHub()">disconnect</button>
-                    </span>
-                    <span class="pull-right">
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="vm.trigger()">20 loops</button>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="vm.resetMessages()">clear</button>
-                    </span>
+                    <div>Hub status: <span ng-class="vm.hubStatusColor">{{vm.hubStatus}}</span></div>
+                    <div style="margin-top:5px">
+                        <div class="btn-group btn-group-xs" role="group">
+                            <button type="button" class="btn btn-info" ng-click="vm.startHub()" ng-disabled="vm.isConnecting">
+                                {{vm.isConnecting ? 'connecting...' : 'reconnect'}}
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="vm.stopHub()">disconnect</button>
+                        </div>                            
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="vm.trigger()">20 loops</button>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="vm.resetMessages()">clear</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body broadcast-panel">
                     <div ng-repeat="message in vm.broadcastMessages track by $index">
@@ -39,21 +40,28 @@
 </div>
 @section Scripts {
 <script>
-    $(function () { 
-        //var connection = $.hubConnection();
-        //var hub = connection.createHubProxy("BroadcastHub");
+(function ($) {
 
-        //hub.on('notify', (message) => { 
-        //    $('#broadcast-message').html(message);
-        //});
+    $(function () {
 
-        //$('#invoke-btn').click(() => {
-        //    hub.invoke("Trigger");
-        //});        
+        //replaced by angular code
+        @*var connection = $.hubConnection();
+        var hub = connection.createHubProxy("BroadcastHub");
 
-        //connection.start().done(() => {
-        //    $('#signalr-status').html('hub started.');
-        //});
-    });
+        hub.on('notify', (message) => {
+            $('#broadcast-message').html(message);
+        });
+
+        $('#invoke-btn').click(() => {
+            hub.invoke("Trigger");
+        });
+
+        connection.start().done(() => {
+            $('#signalr-status').html('hub started.');
+        });*@
+
+    }); // end of DOM ready
+
+})(jQuery); // end of iife
 </script>
 }
