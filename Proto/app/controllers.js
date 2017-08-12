@@ -6,6 +6,15 @@ var AppSpace;
             this.$rootScope = $rootScope;
             this.hubProxyService = hubProxyService;
             this.pageTitle = 'Broadcast Hub';
+            // use arrow function to preserve meaning of "this" to mean this class
+            this.notifyCallback = (message) => {
+                this.broadcastMessages.unshift(message);
+                let itemCount = this.broadcastMessages.length;
+                let numberToKeep = 50;
+                if (itemCount > numberToKeep) {
+                    this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
+                }
+            };
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
             this.setHubEvents(); // define hub client event handlers before hub connection start in $onInit
             this.resetMessages();
@@ -32,15 +41,14 @@ var AppSpace;
         resetMessages() {
             this.broadcastMessages = [];
         }
+        notifyOn() {
+            this.hubProxy.on('notify', this.notifyCallback);
+        }
+        notifyOff() {
+            this.hubProxy.off('notify');
+        }
         setHubEvents() {
-            this.hubProxy.on('notify', (message) => {
-                this.broadcastMessages.unshift(message);
-                let itemCount = this.broadcastMessages.length;
-                let numberToKeep = 50;
-                if (itemCount > numberToKeep) {
-                    this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
-                }
-            });
+            this.notifyOn();
         }
         setHubConnectionEvents() {
             this.hubProxyService.error((error) => {

@@ -46,15 +46,26 @@
             this.broadcastMessages = [];
         }
 
+        // use arrow function to preserve meaning of "this" to mean this class
+        notifyCallback = (message: string) => {
+            this.broadcastMessages.unshift(message);
+            let itemCount = this.broadcastMessages.length;
+            let numberToKeep = 50;
+            if (itemCount > numberToKeep) {
+                this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
+            }
+        }
+
+        notifyOn() {
+            this.hubProxy.on('notify', this.notifyCallback);
+        }
+
+        notifyOff() {
+            this.hubProxy.off('notify');
+        }
+
         setHubEvents() {
-            this.hubProxy.on('notify', (message: string) => {
-                this.broadcastMessages.unshift(message);
-                let itemCount = this.broadcastMessages.length;
-                let numberToKeep = 50;
-                if (itemCount > numberToKeep) {                    
-                    this.broadcastMessages.splice(numberToKeep, itemCount - numberToKeep);
-                }                
-            });
+            this.notifyOn();
         }
 
         setHubConnectionEvents() {
