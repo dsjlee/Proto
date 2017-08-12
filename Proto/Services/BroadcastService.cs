@@ -32,10 +32,10 @@ namespace Proto.Services
             {
                 while (true)
                 {
-                    await Task.Delay(1000);
                     counter++;
-                    _hubContext.Clients.All.notify($"This is test message. {counter}");
+                    _hubContext.Clients.All.notify($"This is test message. {counter}");                 
                     if (counter == counterLimit) break;
+                    await Task.Delay(1000);                 
                 }
             }           
         }
