@@ -4,10 +4,11 @@
 }
 <div ng-controller="panelController as vm">
     <h2>Panels</h2>
+    <br />
     <p>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#panel-modal">Add</button>
-        <button type="button" ng-click="vm.clonePanel()" class="btn btn-default">Clone</button>
-        <button type="button" ng-click="vm.resetPanel()" class="btn btn-default">Reset</button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#panel-modal">Add</button>
+        <button type="button" class="btn btn-info btn-sm" ng-click="vm.clonePanel()">Clone</button>
+        <button type="button" class="btn btn-warning btn-sm" ng-click="vm.resetPanel()" >Reset</button>
     </p>
     <div class="row">
         <div ng-repeat="panel in vm.panels track by $index" class="col-sm-3">
@@ -32,7 +33,7 @@
                     <div ng-show="panel.isEditMode">
                         <textarea ng-model="panel.content" class="form-control"></textarea>
                         <br />
-                        <button type="button" ng-click="panel.save()" class="btn btn-default btn-sm pull-right">Save</button>                        
+                        <button type="button" ng-click="panel.save()" class="btn btn-success btn-sm pull-right">Save</button>                        
                     </div>
                 </div>
                 <div class="panel-footer">{{ panel.addedString() }}</div>
