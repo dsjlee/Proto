@@ -12,24 +12,24 @@ var AppSpace;
             this.hubConnection = hubConnection;
             this.rootScope = rootScope;
             this.hub = this.hubConnection.createHubProxy(hubName);
-            this.wrapperFns = {};
+            this.delegateFns = {};
         }
         // wire up a callback to be invoked when a invocation request is received from the server hub
         on(eventName, callback) {
             // check if callback is not already registered for same event
-            if (!this.wrapperFns[eventName]) {
-                var wrapperFn = (message) => {
+            if (!this.delegateFns[eventName]) {
+                var delegate = (message) => {
                     // SignalR callback does not trigger angular digest cycle. Need to apply manually
                     this.rootScope.$apply(callback(message));
                 };
-                this.wrapperFns[eventName] = wrapperFn; // add into collection
-                this.hub.on(eventName, wrapperFn);
+                this.delegateFns[eventName] = delegate; // add into collection
+                this.hub.on(eventName, delegate);
             }
         }
         // remove the callback invocation request from the server hub for the given event name
         off(eventName) {
-            this.hub.off(eventName, this.wrapperFns[eventName]);
-            delete this.wrapperFns[eventName]; // remove callback from collection
+            this.hub.off(eventName, this.delegateFns[eventName]);
+            delete this.delegateFns[eventName]; // remove callback from collection
         }
         // invoke a server hub method with the given arguments
         invoke(eventName, message) {

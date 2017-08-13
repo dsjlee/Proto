@@ -16,23 +16,28 @@ var AppSpace;
                 }
             };
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-            this.setHubEvents(); // define hub client event handlers before hub connection start in $onInit
+            this.setHubEvents(); // setup hub event handlers before hub connection start
             this.resetMessages();
         }
+        // runs after constructor
         $onInit() {
-            this.setHubConnectionEvents(); // set hub connection event handlers before starting hub connection
+            this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
             this.startHub();
         }
+        // start hub connection
         startHub() {
             this.hubProxyService.start();
         }
+        // stop hub connection
         stopHub() {
             this.hubProxyService.stop(true, true);
         }
+        // trigger hub to broadcast messages in fixed number of loops
         trigger() {
             this.resetMessages();
             this.hubProxy.invoke(AppSpace.HubEvent.Trigger);
         }
+        // send message to hub to be broadcasted
         notify() {
             if (this.notifyMessage) {
                 this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
@@ -41,15 +46,18 @@ var AppSpace;
         resetMessages() {
             this.broadcastMessages = [];
         }
+        // register callback to the hub event
         notifyOn() {
             this.hubProxy.on('notify', this.notifyCallback);
         }
+        // deregister callback from the hub event
         notifyOff() {
             this.hubProxy.off('notify');
         }
         setHubEvents() {
             this.notifyOn();
         }
+        // set event handler for hub connection
         setHubConnectionEvents() {
             this.hubProxyService.error((error) => {
                 this.hubStatus = error.message;
@@ -83,8 +91,8 @@ var AppSpace;
                         break;
                 }
             });
-        }
-    }
+        } // end of setHubConnectionEvents()
+    } // end of AppController class definition
     AppController.$inject = ['$rootScope', 'hubProxyService'];
     AppSpace.AppController = AppController;
     class PanelController {
@@ -114,6 +122,7 @@ var AppSpace;
             this.panels.splice(index, 1);
         }
     }
+    // instead of using type assertion
     PanelController.$inject = [];
     AppSpace.PanelController = PanelController;
 })(AppSpace || (AppSpace = {}));

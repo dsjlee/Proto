@@ -7,35 +7,40 @@
         broadcastMessages: string[];
         hubStatus: string;      
         notifyMessage: string;
-        hubStatusColor: string; // twitter bootstrap contextual class for text
+        hubStatusColor: string; // contextual css class for text
         isConnecting: boolean;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
         constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {           
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-            this.setHubEvents(); // define hub client event handlers before hub connection start in $onInit
+            this.setHubEvents(); // setup hub event handlers before hub connection start
             this.resetMessages();
         }
 
+        // runs after constructor
         $onInit() {                
-            this.setHubConnectionEvents(); // set hub connection event handlers before starting hub connection
+            this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
             this.startHub();
         }
 
+        // start hub connection
         startHub() {
             this.hubProxyService.start();
         }
 
+        // stop hub connection
         stopHub() {
             this.hubProxyService.stop(true, true);
         }
 
+        // trigger hub to broadcast messages in fixed number of loops
         trigger() {
             this.resetMessages();
             this.hubProxy.invoke(HubEvent.Trigger);
         }
 
+        // send message to hub to be broadcasted
         notify() { 
             if (this.notifyMessage) {
                 this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
@@ -56,10 +61,12 @@
             }
         }
 
+        // register callback to the hub event
         notifyOn() {
             this.hubProxy.on('notify', this.notifyCallback);
         }
 
+        // deregister callback from the hub event
         notifyOff() {
             this.hubProxy.off('notify');
         }
@@ -68,11 +75,14 @@
             this.notifyOn();
         }
 
+        // set event handler for hub connection
         setHubConnectionEvents() {
+
             this.hubProxyService.error((error: SignalR.ConnectionError) => {
                 this.hubStatus = error.message;
                 this.hubStatusColor = 'text-danger';
             });
+
             this.hubProxyService.stateChanged((change: SignalR.StateChanged) => {
                 switch (change.newState) {
                     case SignalR.ConnectionState.Connected:
@@ -101,16 +111,18 @@
                         break;
                 }
             });
-        }
 
-    }
+        } // end of setHubConnectionEvents()
+
+    } // end of AppController class definition
 
     export class PanelController implements ng.IController {
 
         readonly ctrlName = 'PanelController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
-        $onInit: () => void;
+        $onInit: () => void; // not used but needed to bypass weak type checking for angular controller
+                             // instead of using type assertion
 
         static $inject: Array<string> = [];       
 
