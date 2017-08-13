@@ -9,6 +9,7 @@
         notifyMessage: string;
         hubStatusColor: string; // contextual css class for text
         isConnecting: boolean;
+        isNotifyOn: boolean;
 
         // chart.js properties
         chartLabels: string[] = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
@@ -53,8 +54,14 @@
         // send message to hub to be broadcasted
         notify() { 
             if (this.notifyMessage) {
+                // even if isNotifyOn is false, invoke anyway to test if callback is indeed deregistered from event
                 this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
-                this.notifyMessage = '';
+                if (this.isNotifyOn) {
+                    // don't clear input if not actually sent (i.e. isNotifyOn is false)
+                    this.notifyMessage = '';
+                } else {
+                    alert('Notify is turned off.');
+                }               
             }  
         }
 
@@ -75,11 +82,13 @@
         // register callback to the hub event
         notifyOn() {
             this.hubProxy.on('notify', this.notifyCallback);
+            this.isNotifyOn = true;
         }
 
         // deregister callback from the hub event
         notifyOff() {
             this.hubProxy.off('notify');
+            this.isNotifyOn = false;
         }
 
         setHubEvents() {
