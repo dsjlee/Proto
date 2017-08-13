@@ -36,6 +36,9 @@ namespace Proto
                         "~/app/services.js",
                         "~/app/controllers.js",
                         "~/app/app.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chart").Include(
+                        "~/Scripts/Chart.js"));
         }
     }
 }
