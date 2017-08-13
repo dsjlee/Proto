@@ -105,6 +105,9 @@ var AppSpace;
                         break;
                 }
             });
+            //this.hubProxyService.received((data: any) => {
+            //    console.log(data);
+            //});
         } // end of setHubConnectionEvents()
         setupChart() {
             for (let i = 0; i < this.xAxisIntervalCount; i++) {

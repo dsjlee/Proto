@@ -129,6 +129,10 @@
                 }
             });
 
+            //this.hubProxyService.received((data: any) => {
+            //    console.log(data);
+            //});
+
         } // end of setHubConnectionEvents()
 
         setupChart() {
@@ -194,6 +198,7 @@
         alertCtrlName = () => {
             alert(this.ctrlName);
         }
+
     }
 
 }

@@ -44,6 +44,11 @@ var AppSpace;
                 this.$rootScope.$evalAsync(callback(change));
             });
         }
+        received(callback) {
+            this.hubConnection.received((data) => {
+                this.$rootScope.$evalAsync(callback(data));
+            });
+        }
     }
     HubProxyService.$inject = ['$rootScope'];
     AppSpace.HubProxyService = HubProxyService;

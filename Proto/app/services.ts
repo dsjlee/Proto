@@ -55,5 +55,12 @@
             });
         }
 
+        received(callback: Function) {
+            this.hubConnection.received((data: any) => {
+                this.$rootScope.$evalAsync(callback(data));
+            });
+        }
+
     }
+
 }
