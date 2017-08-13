@@ -10,7 +10,8 @@
 
         hub: SignalR.Hub.Proxy;
 
-        // collection of key value pair to track what callback is registered to hub event 
+        // collection of key value pair to store what callback is registered to hub event
+        // used to ensure same callback in memory is deregistered from hub event
         private wrapperFns: { [key: string]: (...msg: any[]) => void }; 
 
         constructor(private hubConnection: SignalR.Hub.Connection, hubName: string, private rootScope: ng.IRootScopeService) {
