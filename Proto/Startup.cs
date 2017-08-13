@@ -14,7 +14,7 @@ namespace Proto
             app.MapSignalR();
             // running SignalR here since Owin Startup runs after Global.asax Application_Start
             // meaning Application_Start runs before SignalR is mapped
-            Task.Run(async () => await BroadcastService.Instance.NotifyCients());
+            Task.Run(async () => await HubService.Instance.ChartData());
         }
     }
 }

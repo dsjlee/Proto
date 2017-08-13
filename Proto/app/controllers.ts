@@ -2,13 +2,23 @@
 
     export class AppController implements ng.IController {
 
-        readonly pageTitle = 'Broadcast Hub';
+        // signalr properties
         hubProxy: HubProxy;  
         broadcastMessages: string[];
         hubStatus: string;      
         notifyMessage: string;
         hubStatusColor: string; // contextual css class for text
         isConnecting: boolean;
+
+        // chart.js properties
+        chartLabels: string[] = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
+        chartSeries: string[] = ['Series A'];
+        dataSeriesA: number[] = [];
+        chartData: number[][] = []; // array of number array
+        yAxisIDseriesA: string = 'y-axis-1';
+        datasetOverride: object[] = [{ yAxisID: this.yAxisIDseriesA }];
+        chartOptions: object;
+        readonly xAxisIntervalCount: number = 10;
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
 
@@ -19,7 +29,8 @@
         }
 
         // runs after constructor
-        $onInit() {                
+        $onInit() {   
+            this.setupChart();
             this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
             this.startHub();
         }
@@ -36,7 +47,6 @@
 
         // trigger hub to broadcast messages in fixed number of loops
         trigger() {
-            this.resetMessages();
             this.hubProxy.invoke(HubEvent.Trigger);
         }
 
@@ -73,6 +83,12 @@
 
         setHubEvents() {
             this.notifyOn();
+            this.hubProxy.on('chartData', (data: number) => {
+                this.dataSeriesA.push(data);
+                if (this.dataSeriesA.length > this.xAxisIntervalCount) {
+                    this.chartData[0].shift();
+                }
+            });
         }
 
         // set event handler for hub connection
@@ -113,6 +129,30 @@
             });
 
         } // end of setHubConnectionEvents()
+
+        setupChart() {
+            for (let i = 0; i < this.xAxisIntervalCount; i++) {
+                // initialize y-axis values for each x-axis interval by setting it to zero
+                this.dataSeriesA.push(0);
+            }
+            this.chartData.push(this.dataSeriesA);
+            this.chartOptions = {
+                scales: {
+                    yAxes: [
+                        {
+                            id: this.yAxisIDseriesA,
+                            type: 'linear',
+                            display: true,
+                            position: 'left'
+                        }
+                    ]
+                }
+            }
+        }
+
+        onChartClick(points: any, evt: any) {
+            console.log(points, evt);
+        }
 
     } // end of AppController class definition
 

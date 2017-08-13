@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <div ng-controller="appController as vm">
-    <h2>{{vm.pageTitle}} <small>SignalR test interface</small></h2>
+    <h2>Broadcast Hub <small>SignalR test interface</small></h2>
     <br />
     <div class="row">
         <div class="col-md-6">
@@ -10,7 +10,7 @@
                 <div class="input-group">
                     <input type="text" name="notifyMessage" class="form-control" ng-model="vm.notifyMessage" ng-maxlength="1000" required />
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">send</button>
+                        <button type="submit" class="btn btn-primary">notify</button>
                     </span>
                 </div>
                 <div ng-if="notifyForm.notifyMessage.$error.maxlength" class="text-danger">Max allowed is 1000 characters.</div>
@@ -27,8 +27,7 @@
                         &nbsp;
                         <button type="button" class="btn btn-success btn-xs" ng-click="vm.notifyOn()">notifyOn</button>
                         <button type="button" class="btn btn-warning btn-xs" ng-click="vm.notifyOff()">notifyOff</button>
-                        <div class="pull-right">
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="vm.trigger()">20 loops</button>
+                        <div class="pull-right">                            
                             <button type="button" class="btn btn-default btn-xs" ng-click="vm.resetMessages()">clear</button>
                         </div>
                     </div>
@@ -39,6 +38,23 @@
                     </div>                  
                 </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <h3>
+                Reactive Chart
+                &nbsp;
+                <span>
+                    <button type="button" class="btn btn-primary btn-xs" ng-click="vm.trigger()">random chart</button>
+                </span>
+            </h3>            
+            <canvas id="line-chart" class="chart chart-line" 
+                    chart-data="vm.chartData"
+                    chart-labels="vm.chartLabels" 
+                    chart-series="vm.chartSeries" 
+                    chart-options="vm.chart.Options"
+                    chart-dataset-override="vm.chart.datasetOverride" 
+                    chart-click="vm.onChartClick">
+            </canvas>
         </div>
     </div>
 </div>

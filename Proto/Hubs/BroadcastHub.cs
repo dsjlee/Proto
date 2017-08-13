@@ -6,20 +6,20 @@ namespace Proto.Hubs
 {
     public class BroadcastHub : Hub
     {
-        private readonly BroadcastService _broadcastService;
+        private readonly HubService _hubService;
 
-        // hub is transitory (created every time it is needed)
-        public BroadcastHub() : this(BroadcastService.Instance) { }
+        // SingalR.Hub is transitory (created every time it is needed)
+        public BroadcastHub() : this(HubService.Instance) { }
 
-        // inject BroadcastService singleton
-        public BroadcastHub(BroadcastService broadcastService) => _broadcastService = broadcastService;
+        // inject HubService singleton
+        public BroadcastHub(HubService hubService) => _hubService = hubService;
         
         public async Task Trigger()
         {
-            if (_broadcastService.counter == BroadcastService.counterLimit)
+            if (_hubService.counter == HubService.counterLimit)
             {
-                _broadcastService.counter = 0;
-                await _broadcastService.NotifyCients();
+                _hubService.counter = 0;
+                await _hubService.ChartData();
             }            
         }
 

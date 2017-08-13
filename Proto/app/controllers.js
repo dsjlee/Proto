@@ -5,7 +5,14 @@ var AppSpace;
         constructor($rootScope, hubProxyService) {
             this.$rootScope = $rootScope;
             this.hubProxyService = hubProxyService;
-            this.pageTitle = 'Broadcast Hub';
+            // chart.js properties
+            this.chartLabels = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
+            this.chartSeries = ['Series A'];
+            this.dataSeriesA = [];
+            this.chartData = []; // array of number array
+            this.yAxisIDseriesA = 'y-axis-1';
+            this.datasetOverride = [{ yAxisID: this.yAxisIDseriesA }];
+            this.xAxisIntervalCount = 10;
             // use arrow function to preserve meaning of "this" to mean this class
             this.notifyCallback = (message) => {
                 this.broadcastMessages.unshift(message);
@@ -21,6 +28,7 @@ var AppSpace;
         }
         // runs after constructor
         $onInit() {
+            this.setupChart();
             this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
             this.startHub();
         }
@@ -34,7 +42,6 @@ var AppSpace;
         }
         // trigger hub to broadcast messages in fixed number of loops
         trigger() {
-            this.resetMessages();
             this.hubProxy.invoke(AppSpace.HubEvent.Trigger);
         }
         // send message to hub to be broadcasted
@@ -56,6 +63,12 @@ var AppSpace;
         }
         setHubEvents() {
             this.notifyOn();
+            this.hubProxy.on('chartData', (data) => {
+                this.dataSeriesA.push(data);
+                if (this.dataSeriesA.length > this.xAxisIntervalCount) {
+                    this.chartData[0].shift();
+                }
+            });
         }
         // set event handler for hub connection
         setHubConnectionEvents() {
@@ -92,6 +105,28 @@ var AppSpace;
                 }
             });
         } // end of setHubConnectionEvents()
+        setupChart() {
+            for (let i = 0; i < this.xAxisIntervalCount; i++) {
+                // initialize y-axis values for each x-axis interval by setting it to zero
+                this.dataSeriesA.push(0);
+            }
+            this.chartData.push(this.dataSeriesA);
+            this.chartOptions = {
+                scales: {
+                    yAxes: [
+                        {
+                            id: this.yAxisIDseriesA,
+                            type: 'linear',
+                            display: true,
+                            position: 'left'
+                        }
+                    ]
+                }
+            };
+        }
+        onChartClick(points, evt) {
+            console.log(points, evt);
+        }
     } // end of AppController class definition
     AppController.$inject = ['$rootScope', 'hubProxyService'];
     AppSpace.AppController = AppController;
