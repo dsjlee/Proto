@@ -54,6 +54,7 @@
         notify() { 
             if (this.notifyMessage) {
                 this.hubProxy.invoke(HubEvent.Notify, this.notifyMessage);
+                this.notifyMessage = '';
             }  
         }
 

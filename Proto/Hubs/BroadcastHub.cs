@@ -13,17 +13,21 @@ namespace Proto.Hubs
 
         // inject HubService singleton
         public BroadcastHub(HubService hubService) => _hubService = hubService;
-        
+
         public async Task Trigger()
         {
             if (_hubService.counter == HubService.counterLimit)
             {
                 _hubService.counter = 0;
                 await _hubService.ChartData();
-            }            
+            }
         }
 
-        public void Notify(string message) => Clients.All.notify(message);
-        
+        public void Notify(string message)
+        {
+            var formattedMessage = Context.Request.Environment
+                .TryGetValue("server.RemoteIpAddress", out object remoteIp) ? $"{remoteIp}: {message}" : message; 
+            Clients.All.notify(formattedMessage);
+        }   
     }
 }

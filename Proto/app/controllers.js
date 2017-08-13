@@ -48,6 +48,7 @@ var AppSpace;
         notify() {
             if (this.notifyMessage) {
                 this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
+                this.notifyMessage = '';
             }
         }
         resetMessages() {
