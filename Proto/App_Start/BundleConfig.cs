@@ -32,6 +32,7 @@ namespace Proto
 
             bundles.Add(new ScriptBundle("~/bundles/angular-app").Include(
                         "~/Scripts/angular.js",
+                        "~/Scripts/angular-chart.js",
                         "~/app/model.js",
                         "~/app/services.js",
                         "~/app/controllers.js",
