@@ -76,7 +76,7 @@ var AppSpace;
             this.hubProxy.on('chartData', (data) => {
                 this.dataSeriesA.push(data);
                 if (this.dataSeriesA.length > this.xAxisIntervalCount) {
-                    this.chartData[0].shift();
+                    this.dataSeriesA.shift();
                 }
             });
         }

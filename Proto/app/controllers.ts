@@ -96,7 +96,7 @@
             this.hubProxy.on('chartData', (data: number) => {
                 this.dataSeriesA.push(data);
                 if (this.dataSeriesA.length > this.xAxisIntervalCount) {
-                    this.chartData[0].shift();
+                    this.dataSeriesA.shift();
                 }
             });
         }
