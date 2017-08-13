@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <div ng-controller="appController as vm">
-    <h2>Broadcast Hub <small>SignalR test interface</small></h2>
+    <h2>Broadcast Hub <small>SignalR test</small></h2>
     <br />
     <div class="row">
         <div class="col-md-6">
@@ -23,15 +23,18 @@
                         <div class="pull-right">
                             <button type="button" class="btn btn-default btn-xs" ng-click="vm.resetMessages()">clear</button>
                         </div>
-                        <button type="button" class="btn btn-info btn-xs" ng-click="vm.startHub()" ng-disabled="vm.isConnecting">
-                            <i class="fa fa-spinner fa-spin" aria-hidden="true" ng-show="vm.isConnecting"></i>
-                            {{vm.isConnecting ? 'connecting' : 'reconnect'}}
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="vm.stopHub()">disconnect</button>
-                        &nbsp;
                         <div class="btn-group btn-group-xs" role="group">
-                            <button type="button" class="btn" ng-class="{'btn-default': !vm.isNotifyOn, 'btn-success': vm.isNotifyOn}" ng-click="vm.notifyOn()">notifyOn</button>
-                            <button type="button" class="btn" ng-class="{'btn-default': vm.isNotifyOn, 'btn-warning': !vm.isNotifyOn}" ng-click="vm.notifyOff()">notifyOff</button>
+                            <button type="button" class="btn btn-info" ng-click="vm.startHub()" ng-disabled="vm.isConnecting">
+                                <i class="fa fa-spinner fa-spin" aria-hidden="true" ng-show="vm.isConnecting"></i>
+                                {{vm.isConnecting ? '' : 'reconnect'}}
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="vm.stopHub()">disconnect</button>
+                            <button type="button" class="btn" 
+                                    ng-class="{'btn-default': !vm.isNotifyOn, 'btn-success': vm.isNotifyOn}" 
+                                    ng-click="vm.notifyOn()">notifyOn</button>
+                            <button type="button" class="btn" 
+                                    ng-class="{'btn-default': vm.isNotifyOn, 'btn-warning': !vm.isNotifyOn}" 
+                                    ng-click="vm.notifyOff()">notifyOff</button>
                         </div>
                     </div>
                 </div>
