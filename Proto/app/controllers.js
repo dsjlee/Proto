@@ -48,13 +48,10 @@ var AppSpace;
         notify() {
             if (this.notifyMessage) {
                 // even if isNotifyOn is false, invoke anyway to test if callback is indeed deregistered from event
-                this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
-                if (this.isNotifyOn) {
-                    // don't clear input if not actually sent (i.e. isNotifyOn is false)
-                    this.notifyMessage = '';
-                }
-                else {
-                    alert('Notify is turned off.');
+                let isConnected = this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
+                if (isConnected) {
+                    // don't clear input if not actually sent (i.e. notify is off or hub disconnected)
+                    this.isNotifyOn ? this.notifyMessage = '' : alert('Notify is turned off.');
                 }
             }
         }

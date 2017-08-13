@@ -32,6 +32,7 @@ var AppSpace;
             delete this.delegateFns[eventName]; // remove callback from collection
         }
         // invoke a server hub method with the given arguments
+        // return false to indicate hub is disconnected
         invoke(eventName, message) {
             if (this.hubConnection.state === 1 /* Connected */) {
                 if (message) {
@@ -40,9 +41,11 @@ var AppSpace;
                 else {
                     this.hub.invoke(eventName);
                 }
+                return true;
             }
             else {
                 alert('Hub is disconnected.');
+                return false;
             }
         }
     }

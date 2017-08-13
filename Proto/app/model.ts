@@ -39,15 +39,18 @@
         }
 
         // invoke a server hub method with the given arguments
-        invoke(eventName: HubEvent, message?: string) {
+        // return false to indicate hub is disconnected
+        invoke(eventName: HubEvent, message?: string): boolean {
             if (this.hubConnection.state === SignalR.ConnectionState.Connected) {
                 if (message) {
                     this.hub.invoke(eventName, message);
                 } else {
                     this.hub.invoke(eventName);
                 } 
+                return true;
             } else {
                 alert('Hub is disconnected.');
+                return false;
             }        
         }
     }
