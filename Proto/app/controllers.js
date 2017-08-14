@@ -7,12 +7,12 @@ var AppSpace;
             this.hubProxyService = hubProxyService;
             // chart.js properties
             this.chartLabels = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
-            this.chartSeries = ['Series A'];
-            this.dataSeriesA = [];
+            this.chartSeries = ['Series A']; // for each line in graph
+            this.dataSeriesA = []; // to be pushed into chartData for each series
             this.chartData = []; // array of number array
+            this.xAxisPointCount = 10;
             this.yAxisIDseriesA = 'y-axis-1';
             this.datasetOverride = [{ yAxisID: this.yAxisIDseriesA }];
-            this.xAxisIntervalCount = 10;
             // use arrow function to preserve meaning of "this" to mean this class
             this.notifyCallback = (message) => {
                 this.broadcastMessages.unshift(message);
@@ -72,7 +72,7 @@ var AppSpace;
             this.notifyOn();
             this.hubProxy.on('chartData', (data) => {
                 this.dataSeriesA.push(data);
-                if (this.dataSeriesA.length > this.xAxisIntervalCount) {
+                if (this.dataSeriesA.length > this.xAxisPointCount) {
                     this.dataSeriesA.shift();
                 }
             });
@@ -116,8 +116,8 @@ var AppSpace;
             //});
         } // end of setHubConnectionEvents()
         setupChart() {
-            for (let i = 0; i < this.xAxisIntervalCount; i++) {
-                // initialize y-axis values for each x-axis interval by setting it to zero
+            for (let i = 0; i < this.xAxisPointCount; i++) {
+                // initialize y-axis values for each x-axis point by setting it to zero
                 this.dataSeriesA.push(0);
             }
             this.chartData.push(this.dataSeriesA);
