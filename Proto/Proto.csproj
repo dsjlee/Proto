@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Hubs\BroadcastHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BroadcastMessage.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

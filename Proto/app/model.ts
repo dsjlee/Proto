@@ -56,7 +56,6 @@
     }
 
     export class Panel {
-
         added: Date = new Date();
         isEditMode: boolean = false;
 
@@ -73,7 +72,12 @@
         save() {
             this.isEditMode = false;
         }
+    }
 
+    export class BroadcastMessage implements IBroadcastMessage {
+        ConnectionId: string;
+        Message: string;
+        Added: string;
     }
 
 }

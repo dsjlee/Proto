@@ -68,5 +68,8 @@ var AppSpace;
         }
     }
     AppSpace.Panel = Panel;
+    class BroadcastMessage {
+    }
+    AppSpace.BroadcastMessage = BroadcastMessage;
 })(AppSpace || (AppSpace = {}));
 //# sourceMappingURL=model.js.map
