@@ -8,7 +8,7 @@ namespace Proto.Models
     [T4TS.TypeScriptInterface]
     public class BroadcastMessage
     {
-        public Guid ConnectionId { get; set; }
+        public string ConnectionId { get; set; }
         public string Message { get; set; }
         public DateTime Added { get; set; }
     }

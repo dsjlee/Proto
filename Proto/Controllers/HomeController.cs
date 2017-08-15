@@ -1,6 +1,7 @@
 ﻿using LazyCache;
 using Proto.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -17,9 +18,6 @@ namespace Proto.Controllers
 
         public ActionResult Index()
         {
-            //var fromCache = _cache.GetOrAdd("from-cache", () => "I'm from cache.");
-            //ViewBag.FromCache = fromCache;
-
             return View();
         }
 
@@ -87,6 +85,13 @@ namespace Proto.Controllers
         public ActionResult ServerEvent()
         {
             return Content($"data: {Helper.Broadcast}\n\n", "text/event-stream");
+        }
+
+        public JsonResult Cache()
+        {
+            var list = _cache.GetOrAdd("BroadcastMessage", () => new List<BroadcastMessage>());
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         //public ActionResult JsonFormat()
