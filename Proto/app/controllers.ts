@@ -21,7 +21,7 @@
         datasetOverride: ChartDataSets[] = [{ yAxisID: this.yAxisIDseriesA }];
         chartOptions: ChartOptions;    
 
-        static $inject: Array<string> = ['$rootScope', 'hubProxyService'];
+        static $inject: Array<string> = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
 
         constructor(private $rootScope: ng.IRootScopeService, private hubProxyService: HubProxyService) {           
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");

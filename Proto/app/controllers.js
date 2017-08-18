@@ -138,7 +138,7 @@ var AppSpace;
             console.log(points, evt);
         }
     } // end of AppController class definition
-    AppController.$inject = ['$rootScope', 'hubProxyService'];
+    AppController.$inject = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
     AppSpace.AppController = AppController;
     class PanelController {
         constructor() {
