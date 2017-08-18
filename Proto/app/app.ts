@@ -8,15 +8,13 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     .controller('panelController', AppSpace.PanelController)
     .service('hubProxyService', AppSpace.HubProxyService)
     .config(($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) => {
-        $locationProvider.hashPrefix('');
+        //$locationProvider.hashPrefix('');
         $routeProvider
             .when('/Home/NgRoute', {
                 templateUrl: 'app/partial.html',
                 controller: 'panelController',
                 controllerAs: 'vm',
-                resolve: {
-
-                }
+                resolve: { }
             });
             //.otherwise({ redirectTo: '/Home' });
 
