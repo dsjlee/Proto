@@ -33,7 +33,7 @@
         $onInit() {   
             this.setupChart();
             this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
-            this.startHub();
+            this.startHub();            
         }
 
         // start hub connection
@@ -173,14 +173,16 @@
         readonly ctrlName = 'PanelController';
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
-        $onInit: () => void; // not used but needed to bypass weak type checking for angular controller
-                             // instead of using type assertion
 
-        static $inject: Array<string> = [];       
+        static $inject: Array<string> = ['routingDataService'];       
 
-        constructor() {
+        constructor(private routingData: IRoutingDataService) {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
+        }
+
+        $onInit() {
+            this.routingData.set({ title: 'changed title'});
         }
 
         addPanel() {

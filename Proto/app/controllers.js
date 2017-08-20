@@ -141,7 +141,8 @@ var AppSpace;
     AppController.$inject = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
     AppSpace.AppController = AppController;
     class PanelController {
-        constructor() {
+        constructor(routingData) {
+            this.routingData = routingData;
             this.ctrlName = 'PanelController';
             this.panels = [];
             this.newPanel = new AppSpace.Panel();
@@ -150,6 +151,9 @@ var AppSpace;
             };
             let panel = new AppSpace.Panel('some title', 'some content');
             this.panels.push(panel);
+        }
+        $onInit() {
+            this.routingData.set({ title: 'changed title' });
         }
         addPanel() {
             this.newPanel.added = new Date();
@@ -167,8 +171,7 @@ var AppSpace;
             this.panels.splice(index, 1);
         }
     }
-    // instead of using type assertion
-    PanelController.$inject = [];
+    PanelController.$inject = ['routingDataService'];
     AppSpace.PanelController = PanelController;
 })(AppSpace || (AppSpace = {}));
 //# sourceMappingURL=controllers.js.map

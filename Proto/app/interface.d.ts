@@ -10,4 +10,12 @@ declare module AppSpace {
         Added: string;
     }
 
+    export interface IRoutingDTO {
+        title: string;
+    }
+
+    export interface IRoutingDataService {
+        set: (dto: IRoutingDTO) => void;
+        get: () => IRoutingDTO;
+    }
 }

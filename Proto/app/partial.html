@@ -1,1 +1,66 @@
-﻿<div>{{vm.ctrlName}}</div>
+﻿<h2>Panels  <small>inline editing panel in angular</small></h2>
+<br />
+<p>{{vm.routingData.get() | json}}</p>
+<p>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#panel-modal">Add</button>
+    <button type="button" class="btn btn-info btn-sm" ng-click="vm.clonePanel()">Clone</button>
+    <button type="button" class="btn btn-warning btn-sm" ng-click="vm.resetPanel()">Reset</button>
+</p>
+<div class="row">
+    <div ng-repeat="panel in vm.panels track by $index" class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="pull-right" ng-show="!panel.isEditMode">
+                    <a href="" ng-click="panel.toggleEdit()">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="" ng-click="vm.removePanel($index)">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </span>
+                <h3 class="panel-title" ng-show="!panel.isEditMode">{{ panel.title }}</h3>
+                <input type="text" ng-model="panel.title" ng-show="panel.isEditMode" class="form-control" />
+            </div>
+            <div class="panel-body">
+                <div ng-show="!panel.isEditMode">
+                    {{ panel.content }}
+                </div>
+                <div ng-show="panel.isEditMode">
+                    <textarea ng-model="panel.content" class="form-control"></textarea>
+                    <br />
+                    <button type="button" ng-click="panel.save()" class="btn btn-success btn-sm pull-right">Save</button>
+                </div>
+            </div>
+            <div class="panel-footer">{{ panel.addedString() }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- panel-modal -->
+<div class="modal fade" id="panel-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Panel</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" ng-model="vm.newPanel.title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Content:</label>
+                        <textarea ng-model="vm.newPanel.content" class="form-control"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.addPanel()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -61,6 +61,18 @@
             });
         }
 
-    }
+    } // end of HubProxyService class
+
+    export function RoutingDataService(): IRoutingDataService  {
+
+        let routingDto: IRoutingDTO = {
+            title: 'Hello'
+        };
+
+        return {
+            set: (dto: IRoutingDTO) => routingDto = dto,
+            get: () => routingDto
+        };
+    };
 
 }

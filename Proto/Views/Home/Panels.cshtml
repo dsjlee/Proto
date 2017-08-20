@@ -5,6 +5,7 @@
 <div ng-controller="panelController as vm">
     <h2>Panels  <small>inline editing panel in angular</small></h2>
     <br />
+    <p>{{vm.routingData.get() | json}}</p>
     <p>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#panel-modal">Add</button>
         <button type="button" class="btn btn-info btn-sm" ng-click="vm.clonePanel()">Clone</button>

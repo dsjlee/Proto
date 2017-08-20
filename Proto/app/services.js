@@ -49,8 +49,19 @@ var AppSpace;
                 this.$rootScope.$evalAsync(callback(data));
             });
         }
-    }
+    } // end of HubProxyService class
     HubProxyService.$inject = ['$rootScope'];
     AppSpace.HubProxyService = HubProxyService;
+    function RoutingDataService() {
+        let routingDto = {
+            title: 'Hello'
+        };
+        return {
+            set: (dto) => routingDto = dto,
+            get: () => routingDto
+        };
+    }
+    AppSpace.RoutingDataService = RoutingDataService;
+    ;
 })(AppSpace || (AppSpace = {}));
 //# sourceMappingURL=services.js.map

@@ -7,17 +7,29 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     .controller('appController', AppSpace.AppController)
     .controller('panelController', AppSpace.PanelController)
     .service('hubProxyService', AppSpace.HubProxyService)
+    .factory('routingDataService', AppSpace.RoutingDataService)
     .config(($routeProvider, $locationProvider) => {
-    //$locationProvider.hashPrefix('');
+    //$locationProvider.hashPrefix(''); default is bang !
+    //$locationProvider.html5Mode(true); no hashtag
     $routeProvider
-        .when('/Home/NgRoute', {
-        templateUrl: 'app/partial.html',
+        .when('/Panels', {
+        templateUrl: '../app/partial.html',
         controller: 'panelController',
         controllerAs: 'vm',
         resolve: {}
+    })
+        .otherwise({ redirectTo: '/' });
+})
+    .run(($rootScope) => {
+    $rootScope.$on('$locationChangeStart', (event, next, current) => {
+        //console.log(event);
+        //console.log(next);
+        //console.log(current);
     });
-    //.otherwise({ redirectTo: '/Home' });
-    // configure html5 to get links working on jsfiddle
-    //$locationProvider.html5Mode(true);
+    $rootScope.$on('$routeChangeStart', (event, next, current) => {
+        //console.log(event);
+        //console.log(next);
+        //console.log(current);
+    });
 });
 //# sourceMappingURL=app.js.map

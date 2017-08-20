@@ -18,7 +18,7 @@
     <AssemblyName>Proto</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -340,6 +340,7 @@
     <Content Include="Views\Home\Panels.cshtml" />
     <Content Include="Views\Home\EventSource.cshtml" />
     <Content Include="T4TS.tt.settings.t4" />
+    <Content Include="Views\Home\Route.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

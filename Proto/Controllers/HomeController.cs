@@ -26,6 +26,11 @@ namespace Proto.Controllers
             return View();
         }
 
+        public ActionResult Route()
+        {
+            return View();
+        }
+
         public ActionResult ProgressBar()
         {
             return View();
