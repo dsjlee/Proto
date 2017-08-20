@@ -7,7 +7,7 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     .controller('appController', AppSpace.AppController)
     .controller('panelController', AppSpace.PanelController)
     .service('hubProxyService', AppSpace.HubProxyService)
-    .factory('routingDataService', AppSpace.RoutingDataService)
+    .service('routingDataService', AppSpace.RoutingDataService)
     .config(($routeProvider, $locationProvider) => {
     //$locationProvider.hashPrefix(''); default is bang !
     //$locationProvider.html5Mode(true); no hashtag

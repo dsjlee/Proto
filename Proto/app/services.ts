@@ -63,16 +63,12 @@
 
     } // end of HubProxyService class
 
-    export function RoutingDataService(): IRoutingDataService  {
+    export class RoutingDataService  {
+        title: string;
 
-        let routingDto: IRoutingDTO = {
-            title: 'Hello'
-        };
-
-        return {
-            set: (dto: IRoutingDTO) => routingDto = dto,
-            get: () => routingDto
-        };
+        constructor() {
+            this.title = 'hello';
+        }
     };
 
 }

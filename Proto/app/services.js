@@ -52,14 +52,10 @@ var AppSpace;
     } // end of HubProxyService class
     HubProxyService.$inject = ['$rootScope'];
     AppSpace.HubProxyService = HubProxyService;
-    function RoutingDataService() {
-        let routingDto = {
-            title: 'Hello'
-        };
-        return {
-            set: (dto) => routingDto = dto,
-            get: () => routingDto
-        };
+    class RoutingDataService {
+        constructor() {
+            this.title = 'hello';
+        }
     }
     AppSpace.RoutingDataService = RoutingDataService;
     ;

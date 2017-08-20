@@ -7,7 +7,7 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     .controller('appController', AppSpace.AppController)
     .controller('panelController', AppSpace.PanelController)
     .service('hubProxyService', AppSpace.HubProxyService)
-    .factory('routingDataService', AppSpace.RoutingDataService)
+    .service('routingDataService', AppSpace.RoutingDataService)
     .config(($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) => {
         //$locationProvider.hashPrefix(''); default is bang !
         //$locationProvider.html5Mode(true); no hashtag
@@ -22,6 +22,7 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     })
     .run(($rootScope: ng.IRootScopeService) => {
         $rootScope.$on('$locationChangeStart', (event, next, current) => {
+
             //console.log(event);
             //console.log(next);
             //console.log(current);

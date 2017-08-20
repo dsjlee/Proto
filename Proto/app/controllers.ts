@@ -174,15 +174,21 @@
         panels: Panel[] = [];
         newPanel: Panel = new Panel();
 
-        static $inject: Array<string> = ['routingDataService'];       
+        static $inject: Array<string> = ['$rootScope', 'routingDataService'];       
 
-        constructor(private routingData: IRoutingDataService) {
+        constructor(private $rootScope: ng.IRootScopeService, private routingData: RoutingDataService) {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
+            this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
+                console.log(this.routingData.title);
+                //console.log(event);
+                //console.log(next);
+                //console.log(current);
+            });
         }
 
         $onInit() {
-            this.routingData.set({ title: 'changed title'});
+
         }
 
         addPanel() {
