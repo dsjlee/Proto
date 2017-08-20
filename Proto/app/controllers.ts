@@ -180,7 +180,7 @@
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
             this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
-                console.log(this.routingData.title);
+                //event.preventDefault();
                 //console.log(event);
                 //console.log(next);
                 //console.log(current);

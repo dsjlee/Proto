@@ -5,6 +5,11 @@
         Notify = 'Notify'
     }
 
+    export enum Route {
+        Base = '/',
+        Panels = '/Panels'
+    }
+
     // wrapper to encapsulate SignalR.Hub.Proxy and its methods
     export class HubProxy {
 

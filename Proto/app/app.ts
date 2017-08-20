@@ -12,13 +12,13 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
         //$locationProvider.hashPrefix(''); default is bang !
         //$locationProvider.html5Mode(true); no hashtag
         $routeProvider
-            .when('/Panels', {
+            .when(AppSpace.Route.Panels, {
                 templateUrl: '../app/partial.html',
                 controller: 'panelController',
                 controllerAs: 'vm',
                 resolve: { }
             })
-            .otherwise({ redirectTo: '/' });        
+            .otherwise({ redirectTo: AppSpace.Route.Base });        
     })
     .run(($rootScope: ng.IRootScopeService) => {
         $rootScope.$on('$locationChangeStart', (event, next, current) => {

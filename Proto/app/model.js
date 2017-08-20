@@ -6,6 +6,11 @@ var AppSpace;
         HubEvent["Trigger"] = "Trigger";
         HubEvent["Notify"] = "Notify";
     })(HubEvent = AppSpace.HubEvent || (AppSpace.HubEvent = {}));
+    let Route;
+    (function (Route) {
+        Route["Base"] = "/";
+        Route["Panels"] = "/Panels";
+    })(Route = AppSpace.Route || (AppSpace.Route = {}));
     // wrapper to encapsulate SignalR.Hub.Proxy and its methods
     class HubProxy {
         constructor(hubConnection, hubName, rootScope) {
