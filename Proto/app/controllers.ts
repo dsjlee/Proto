@@ -179,12 +179,12 @@
         constructor(private $rootScope: ng.IRootScopeService, private routingData: RoutingDataService, private $location: ng.ILocationService) {
             let panel = new Panel('some title', 'some content');
             this.panels.push(panel);
-            this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
-                //if ($location.path() === Route.Base) event.preventDefault();
-                //console.log(event);
-                //console.log(next);
-                //console.log(current);
-            });
+            //this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
+            //    //if ($location.path() === Route.Base) event.preventDefault();
+            //    //console.log(event);
+            //    //console.log(next);
+            //    //console.log(current);
+            //});
         }
 
         $onInit() {

@@ -19,17 +19,17 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
         resolve: {}
     })
         .otherwise({ redirectTo: AppSpace.Route.Base });
-})
-    .run(($rootScope) => {
-    $rootScope.$on('$locationChangeStart', (event, next, current) => {
-        //console.log(event);
-        //console.log(next);
-        //console.log(current);
-    });
-    $rootScope.$on('$routeChangeStart', (event, next, current) => {
-        //console.log(event);
-        //console.log(next);
-        //console.log(current);
-    });
 });
+//.run(($rootScope: ng.IRootScopeService) => {
+//    $rootScope.$on('$locationChangeStart', (event, next, current) => {
+//        //console.log(event);
+//        //console.log(next);
+//        //console.log(current);
+//    });
+//    $rootScope.$on('$routeChangeStart', (event, next, current) => {
+//        //console.log(event);
+//        //console.log(next);
+//        //console.log(current);
+//    });
+//}); 
 //# sourceMappingURL=app.js.map
