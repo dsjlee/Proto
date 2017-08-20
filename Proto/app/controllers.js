@@ -141,9 +141,10 @@ var AppSpace;
     AppController.$inject = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
     AppSpace.AppController = AppController;
     class PanelController {
-        constructor($rootScope, routingData) {
+        constructor($rootScope, routingData, $location) {
             this.$rootScope = $rootScope;
             this.routingData = routingData;
+            this.$location = $location;
             this.ctrlName = 'PanelController';
             this.panels = [];
             this.newPanel = new AppSpace.Panel();
@@ -153,7 +154,7 @@ var AppSpace;
             let panel = new AppSpace.Panel('some title', 'some content');
             this.panels.push(panel);
             this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
-                //event.preventDefault();
+                //if ($location.path() === Route.Base) event.preventDefault();
                 //console.log(event);
                 //console.log(next);
                 //console.log(current);
@@ -177,7 +178,7 @@ var AppSpace;
             this.panels.splice(index, 1);
         }
     }
-    PanelController.$inject = ['$rootScope', 'routingDataService'];
+    PanelController.$inject = ['$rootScope', 'routingDataService', '$location'];
     AppSpace.PanelController = PanelController;
 })(AppSpace || (AppSpace = {}));
 //# sourceMappingURL=controllers.js.map
