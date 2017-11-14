@@ -18,6 +18,7 @@ namespace Proto
             // inject CachingService as singleton and specify default constructor (no parameter)
             container.RegisterType<IAppCache, CachingService>(new ContainerControlledLifetimeManager(), new InjectionConstructor());
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
