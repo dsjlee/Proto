@@ -1,5 +1,7 @@
+using FluentScheduler;
 using LazyCache;
 using Proto.Controllers;
+using Proto.ScheduledTask;
 using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
@@ -22,8 +24,11 @@ namespace Proto
             container.RegisterType<IAppCache, CachingService>(new ContainerControlledLifetimeManager(), new InjectionConstructor());
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
+            container.RegisterType<SampleJob>(new ContainerControlledLifetimeManager());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
+            JobManager.JobFactory = new UnityJobFactory(container);
         }
     }
 }

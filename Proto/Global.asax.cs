@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using FluentScheduler;
+using Proto.ScheduledTask;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -12,7 +14,8 @@ namespace Proto
             UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);           
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            JobManager.Initialize(new JobRegistry());
         }
     }
 }
