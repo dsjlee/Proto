@@ -95,7 +95,7 @@ namespace Proto.Controllers
         public JsonResult Cache()
         {
             var list = _cache.GetOrAdd("BroadcastMessage", () => new List<BroadcastMessage>());
-
+            list.Add(new BroadcastMessage { Message = "hello" });
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
