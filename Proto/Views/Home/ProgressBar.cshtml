@@ -28,7 +28,7 @@
         });
         
         function initProgress(startMoment) {
-            var source = new EventSource('@Url.Action("Progress")');
+            var source = new EventSource('@Url.Action("ProgressAsync")');
             var progressEl = $('#progress-element');
             progressEl.addClass('active');
 

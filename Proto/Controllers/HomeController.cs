@@ -1,7 +1,9 @@
 ﻿using LazyCache;
+using Newtonsoft.Json;
 using Proto.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -60,13 +62,13 @@ namespace Proto.Controllers
         public async Task ProgressAsync()
         {
             Response.ContentType = "text/event-stream";
-            //Response.BufferOutput = false;
+            Response.BufferOutput = false; // setting to false not effective when compression enabled
 
             int percent = 0;
             while (percent <= 100)
-            {               
+            {
                 Response.Write($"data: {percent}\n\n");
-                await Response.FlushAsync();
+                Response.BeginFlush(res => Response.EndFlush(res), Thread.CurrentThread.ManagedThreadId);
 
                 percent += 10;
                 await Task.Delay(1000);
