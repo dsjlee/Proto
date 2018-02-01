@@ -5,15 +5,13 @@ var AppSpace;
         constructor($rootScope, hubProxyService) {
             this.$rootScope = $rootScope;
             this.hubProxyService = hubProxyService;
-            // chart.js properties
-            this.chartLabels = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
-            this.chartSeries = ['Series A']; // for each line in graph
-            this.dataSeriesA = []; // to be pushed into chartData for each series
-            this.chartData = []; // array of number array
+            this.chartLabels = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'];
+            this.chartSeries = ['Series A'];
+            this.dataSeriesA = [];
+            this.chartData = [];
             this.xAxisPointCount = 10;
             this.yAxisIDseriesA = 'y-axis-1';
             this.datasetOverride = [{ yAxisID: this.yAxisIDseriesA }];
-            // use arrow function to preserve meaning of "this" to mean this class
             this.notifyCallback = (message) => {
                 this.broadcastMessages.unshift(message);
                 let itemCount = this.broadcastMessages.length;
@@ -23,34 +21,27 @@ var AppSpace;
                 }
             };
             this.hubProxy = this.hubProxyService.createHubProxy("BroadcastHub");
-            this.setHubEvents(); // setup hub event handlers before hub connection start
+            this.setHubEvents();
             this.resetMessages();
         }
-        // runs after constructor
         $onInit() {
             this.setupChart();
-            this.setHubConnectionEvents(); // setup hub connection event handlers before hub connection start
+            this.setHubConnectionEvents();
             this.startHub();
         }
-        // start hub connection
         startHub() {
             this.hubProxyService.start();
         }
-        // stop hub connection
         stopHub() {
             this.hubProxyService.stop(true, true);
         }
-        // trigger hub to broadcast messages in fixed number of loops
         trigger() {
             this.hubProxy.invoke(AppSpace.HubEvent.Trigger);
         }
-        // send message to hub to be broadcasted
         notify() {
             if (this.notifyMessage) {
-                // even if isNotifyOn is false, invoke anyway to test if callback is indeed deregistered from event
                 let isConnected = this.hubProxy.invoke(AppSpace.HubEvent.Notify, this.notifyMessage);
                 if (isConnected) {
-                    // don't clear input if not actually sent (i.e. notify is off or hub disconnected)
                     this.isNotifyOn ? this.notifyMessage = '' : alert('Notify is turned off.');
                 }
             }
@@ -58,12 +49,10 @@ var AppSpace;
         resetMessages() {
             this.broadcastMessages = [];
         }
-        // register callback to the hub event
         notifyOn() {
             this.hubProxy.on('notify', this.notifyCallback);
             this.isNotifyOn = true;
         }
-        // deregister callback from the hub event
         notifyOff() {
             this.hubProxy.off('notify');
             this.isNotifyOn = false;
@@ -77,7 +66,6 @@ var AppSpace;
                 }
             });
         }
-        // set event handler for hub connection
         setHubConnectionEvents() {
             this.hubProxyService.error((error) => {
                 this.hubStatus = error.message;
@@ -85,22 +73,22 @@ var AppSpace;
             });
             this.hubProxyService.stateChanged((change) => {
                 switch (change.newState) {
-                    case 1 /* Connected */:
+                    case 1:
                         this.hubStatus = 'Connected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-success';
                         break;
-                    case 0 /* Connecting */:
+                    case 0:
                         this.hubStatus = 'Connecting';
                         this.isConnecting = true;
                         this.hubStatusColor = 'text-info';
                         break;
-                    case 4 /* Disconnected */:
+                    case 4:
                         this.hubStatus = 'Disconnected';
                         this.isConnecting = false;
                         this.hubStatusColor = 'text-danger';
                         break;
-                    case 2 /* Reconnecting */:
+                    case 2:
                         this.hubStatus = 'Reconnecting';
                         this.isConnecting = true;
                         this.hubStatusColor = 'text-warning';
@@ -111,13 +99,9 @@ var AppSpace;
                         break;
                 }
             });
-            //this.hubProxyService.received((data: any) => {
-            //    console.log(data);
-            //});
-        } // end of setHubConnectionEvents()
+        }
         setupChart() {
             for (let i = 0; i < this.xAxisPointCount; i++) {
-                // initialize y-axis values for each x-axis point by setting it to zero
                 this.dataSeriesA.push(0);
             }
             this.chartData.push(this.dataSeriesA);
@@ -137,7 +121,7 @@ var AppSpace;
         onChartClick(points, evt) {
             console.log(points, evt);
         }
-    } // end of AppController class definition
+    }
     AppController.$inject = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
     AppSpace.AppController = AppController;
     class PanelController {
@@ -153,12 +137,6 @@ var AppSpace;
             };
             let panel = new AppSpace.Panel('some title', 'some content');
             this.panels.push(panel);
-            //this.$rootScope.$on('$locationChangeStart', (event, next, current) => {
-            //    //if ($location.path() === Route.Base) event.preventDefault();
-            //    //console.log(event);
-            //    //console.log(next);
-            //    //console.log(current);
-            //});
         }
         $onInit() {
         }

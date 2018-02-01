@@ -11,7 +11,6 @@ var AppSpace;
         Route["Base"] = "/";
         Route["Panels"] = "/Panels";
     })(Route = AppSpace.Route || (AppSpace.Route = {}));
-    // wrapper to encapsulate SignalR.Hub.Proxy and its methods
     class HubProxy {
         constructor(hubConnection, hubName, rootScope) {
             this.hubConnection = hubConnection;
@@ -19,27 +18,21 @@ var AppSpace;
             this.hub = this.hubConnection.createHubProxy(hubName);
             this.delegateFns = {};
         }
-        // wire up a callback to be invoked when a invocation request is received from the server hub
         on(eventName, callback) {
-            // check if callback is not already registered for same event
             if (!this.delegateFns[eventName]) {
                 var delegate = (message) => {
-                    // SignalR callback does not trigger angular digest cycle. Need to apply manually
                     this.rootScope.$apply(callback(message));
                 };
-                this.delegateFns[eventName] = delegate; // add into collection
+                this.delegateFns[eventName] = delegate;
                 this.hub.on(eventName, delegate);
             }
         }
-        // remove the callback invocation request from the server hub for the given event name
         off(eventName) {
             this.hub.off(eventName, this.delegateFns[eventName]);
-            delete this.delegateFns[eventName]; // remove callback from collection
+            delete this.delegateFns[eventName];
         }
-        // invoke a server hub method with the given arguments
-        // return false to indicate hub is disconnected
         invoke(eventName, message) {
-            if (this.hubConnection.state === 1 /* Connected */) {
+            if (this.hubConnection.state === 1) {
                 if (message) {
                     this.hub.invoke(eventName, message);
                 }

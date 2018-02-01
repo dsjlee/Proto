@@ -1,16 +1,10 @@
 "use strict";
-/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../scripts/typings/angularjs/angular-route.d.ts" />
-/// <reference path="../scripts/typings/signalr/signalr.d.ts" />
-/// <reference path="../scripts/typings/chart.js/index.d.ts" />
-angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angular-chart.js
+angular.module('app', ['chart.js', 'ngRoute'])
     .controller('appController', AppSpace.AppController)
     .controller('panelController', AppSpace.PanelController)
     .service('hubProxyService', AppSpace.HubProxyService)
     .service('routingDataService', AppSpace.RoutingDataService)
     .config(($routeProvider, $locationProvider) => {
-    //$locationProvider.hashPrefix(''); default is bang !
-    //$locationProvider.html5Mode(true); no hashtag
     $routeProvider
         .when(AppSpace.Route.Panels, {
         templateUrl: '../app/partial.html',
@@ -20,16 +14,4 @@ angular.module('app', ['chart.js', 'ngRoute']) // http://jtblin.github.io/angula
     })
         .otherwise({ redirectTo: AppSpace.Route.Base });
 });
-//.run(($rootScope: ng.IRootScopeService) => {
-//    $rootScope.$on('$locationChangeStart', (event, next, current) => {
-//        //console.log(event);
-//        //console.log(next);
-//        //console.log(current);
-//    });
-//    $rootScope.$on('$routeChangeStart', (event, next, current) => {
-//        //console.log(event);
-//        //console.log(next);
-//        //console.log(current);
-//    });
-//}); 
 //# sourceMappingURL=app.js.map
