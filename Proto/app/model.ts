@@ -80,9 +80,9 @@
     }
 
     export class BroadcastMessage implements IBroadcastMessage {
-        ConnectionId: string;
-        Message: string;
-        Added: string;
+        ConnectionId = '';
+        Message = '';
+        Added = '';
     }
 
 }

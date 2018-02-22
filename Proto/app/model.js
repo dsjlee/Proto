@@ -67,6 +67,11 @@ var AppSpace;
     }
     AppSpace.Panel = Panel;
     class BroadcastMessage {
+        constructor() {
+            this.ConnectionId = '';
+            this.Message = '';
+            this.Added = '';
+        }
     }
     AppSpace.BroadcastMessage = BroadcastMessage;
 })(AppSpace || (AppSpace = {}));

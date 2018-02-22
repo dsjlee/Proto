@@ -4,12 +4,12 @@
 
         // signalr properties
         hubProxy: HubProxy;  
-        broadcastMessages: string[];
-        hubStatus: string;      
-        notifyMessage: string;
-        hubStatusColor: string;                 // contextual css class for text
-        isConnecting: boolean;
-        isNotifyOn: boolean;
+        broadcastMessages: string[] = [];
+        hubStatus = '';      
+        notifyMessage = '';
+        hubStatusColor = '';                 // contextual css class for text
+        isConnecting = false;
+        isNotifyOn = false;
 
         // chart.js properties
         chartLabels: string[] = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th']; // x-axis
@@ -19,7 +19,7 @@
         readonly xAxisPointCount: number = 10;
         readonly yAxisIDseriesA: string = 'y-axis-1';
         datasetOverride: ChartDataSets[] = [{ yAxisID: this.yAxisIDseriesA }];
-        chartOptions: ChartOptions;    
+        chartOptions: ChartOptions = {};    
 
         static $inject: Array<string> = ['$rootScope', 'hubProxyService', '$route', '$routeParams', '$location'];
 

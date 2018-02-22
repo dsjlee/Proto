@@ -5,6 +5,12 @@ var AppSpace;
         constructor($rootScope, hubProxyService) {
             this.$rootScope = $rootScope;
             this.hubProxyService = hubProxyService;
+            this.broadcastMessages = [];
+            this.hubStatus = '';
+            this.notifyMessage = '';
+            this.hubStatusColor = '';
+            this.isConnecting = false;
+            this.isNotifyOn = false;
             this.chartLabels = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'];
             this.chartSeries = ['Series A'];
             this.dataSeriesA = [];
@@ -12,6 +18,7 @@ var AppSpace;
             this.xAxisPointCount = 10;
             this.yAxisIDseriesA = 'y-axis-1';
             this.datasetOverride = [{ yAxisID: this.yAxisIDseriesA }];
+            this.chartOptions = {};
             this.notifyCallback = (message) => {
                 this.broadcastMessages.unshift(message);
                 let itemCount = this.broadcastMessages.length;
