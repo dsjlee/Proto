@@ -20,6 +20,7 @@ namespace Proto
 
             // add task to JobManager after it's initialized in Global.asax Application_Start
             // to ensure SignalR is mapped before running the task
+            // doesn't work to keep app pool alive. need to be http request from client?
             //JobManager.AddJob(() => HubService.Instance.KeepAlive(), (s) => s.ToRunEvery(15).Minutes());
         }
     }
