@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using FluentScheduler;
+using Microsoft.Owin;
 using Owin;
 using Proto.Services;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace Proto
             // running SignalR here since Owin Startup runs after Global.asax Application_Start
             // meaning Application_Start runs before SignalR is mapped
             Task.Run(async () => await HubService.Instance.ChartData());
+            // add task to JobManager after it's initialized in Global.asax Application_Start
+            // to ensure SignalR is mapped before running the task
+            JobManager.AddJob(() => HubService.Instance.KeepAlive(), (s) => s.ToRunEvery(5).Minutes());
         }
     }
 }

@@ -43,5 +43,11 @@ namespace Proto.Services
                 }
             }           
         }
+
+        // for scheduled task
+        public void KeepAlive()
+        {
+            _hubContext.Clients.All.notify($"Server: Staying Alive {DateTime.Now}");
+        }
     }
 }
