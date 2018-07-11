@@ -1,5 +1,4 @@
-﻿using FluentScheduler;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 using Proto.Services;
 using System.Threading.Tasks;
