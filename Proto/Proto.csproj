@@ -334,6 +334,8 @@
     <Content Include="Content\fonts\ui-grid.woff" />
     <Content Include="Content\fonts\ui-grid.ttf" />
     <Content Include="Content\fonts\ui-grid.eot" />
+    <None Include="Properties\PublishProfiles\cmc - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cmc - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
