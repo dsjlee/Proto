@@ -1,5 +1,5 @@
 /*!
- * ui-grid - v4.6.1 - 2018-07-04
+ * ui-grid - v4.6.4 - 2018-10-30
  * Copyright (c) 2018 ; License: MIT 
  */
 
@@ -1100,7 +1100,7 @@
         var aggregations = service.getAggregations( grid );
 
         function createNode( row ) {
-          if ( typeof(row.entity.$$treeLevel) !== 'undefined' && row.treeLevel !== row.entity.$$treeLevel ) {
+          if ( !row.internalRow && row.treeLevel !== row.entity.$$treeLevel ) {
             row.treeLevel = row.entity.$$treeLevel;
           }
 
@@ -1376,26 +1376,34 @@
        * @param {array} parents the parents that we would want to aggregate onto
        */
       aggregate: function( grid, row, parents ) {
-        if ( parents.length === 0 && row.treeNode && row.treeNode.aggregations ) {
+        if (parents.length === 0 && row.treeNode && row.treeNode.aggregations) {
           row.treeNode.aggregations.forEach(function(aggregation) {
             // Calculate aggregations for footer even if there are no grouped rows
-            if ( typeof(aggregation.col.treeFooterAggregation) !== 'undefined' ) {
+            if (typeof(aggregation.col.treeFooterAggregation) !== 'undefined') {
               var fieldValue = grid.getCellValue(row, aggregation.col);
               var numValue = Number(fieldValue);
-              aggregation.col.treeAggregationFn(aggregation.col.treeFooterAggregation, fieldValue, numValue, row);
+              if (aggregation.col.treeAggregationFn) {
+                aggregation.col.treeAggregationFn(aggregation.col.treeFooterAggregation, fieldValue, numValue, row);
+              } else {
+                aggregation.col.treeFooterAggregation.value = undefined;
+              }
             }
           });
         }
 
         parents.forEach( function( parent, index ) {
-          if ( parent.treeNode.aggregations ) {
+          if (parent.treeNode.aggregations) {
             parent.treeNode.aggregations.forEach( function( aggregation ) {
               var fieldValue = grid.getCellValue(row, aggregation.col);
               var numValue = Number(fieldValue);
               aggregation.col.treeAggregationFn(aggregation, fieldValue, numValue, row);
 
-              if ( index === 0 && typeof(aggregation.col.treeFooterAggregation) !== 'undefined' ) {
-                aggregation.col.treeAggregationFn(aggregation.col.treeFooterAggregation, fieldValue, numValue, row);
+              if (index === 0 && typeof(aggregation.col.treeFooterAggregation) !== 'undefined') {
+                if (aggregation.col.treeAggregationFn) {
+                  aggregation.col.treeAggregationFn(aggregation.col.treeFooterAggregation, fieldValue, numValue, row);
+                } else {
+                  aggregation.col.treeFooterAggregation.value = undefined;
+                }
               }
             });
           }
