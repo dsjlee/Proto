@@ -1,6 +1,6 @@
 /*!
- * ui-grid - v4.6.4 - 2018-10-30
- * Copyright (c) 2018 ; License: MIT 
+ * ui-grid - v4.7.1 - 2019-02-06
+ * Copyright (c) 2019 ; License: MIT 
  */
 
 (function () {

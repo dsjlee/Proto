@@ -1,6 +1,6 @@
 /*!
- * ui-grid - v4.6.4 - 2018-10-30
- * Copyright (c) 2018 ; License: MIT 
+ * ui-grid - v4.7.1 - 2019-02-06
+ * Copyright (c) 2019 ; License: MIT 
  */
 .ui-grid {
   border: 1px solid #d4d4d4;
@@ -955,6 +955,38 @@ select.ui-grid-filter-select:hover {
   display: none;
 }
 
+/* This file contains variable declarations (do not remove this line) */
+/*-- VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
+/**
+* @section Grid styles
+*/
+/**
+* @section Header styles
+*/
+/** @description Colors for header gradient */
+/**
+* @section Grid body styles
+*/
+/** @description Colors used for row alternation */
+/**
+* @section Grid Menu colors
+*/
+/**
+* @section Sort arrow colors
+*/
+/**
+* @section Scrollbar styles
+*/
+/**
+* @section font library path
+*/
+/*-- END VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
 .ui-grid-pager-panel {
   display: flex;
   justify-content: space-between;
